@@ -11,6 +11,7 @@ public class Game {
 		System.out.print("Enter number of players : ");
 		int i = stdIn.nextInt();
 		System.out.println(i + " players will be created");
+		stdIn.close();
 	}
 
 }

@@ -4,17 +4,26 @@ import java.util.ArrayList;
 
 public class CardPile {
 	private ArrayList<Card> pile;
-	private int isSorted = 0;// 0 means false, 1 means rank major, 2 means suit major
+	private int isSorted;// 0 means false, 1 means rank major, 2 means suit major
 	
 	public CardPile(){//empty pile
 		pile = new ArrayList<Card>();
+		isSorted = 0;
 	}
-	
-	public CardPile(int i){
-		if (i < 0 || i > 2)
+
+	public CardPile(int numCards, int sort){
+		if (numCards < 0)
 			throw new IllegalArgumentException();
 		pile = new ArrayList<Card>();
-		isSorted = i;
+		isSorted = numCards;
+		if (sort == 1)
+			;//sort rank major
+		else
+			;//sort suit
+	}
+	
+	public CardPile(int numCards){
+		this(numCards, 0);
 	}
 	
 	public CardPile(CardPile temp){//copy constructor
@@ -46,9 +55,20 @@ public class CardPile {
 	
 	public void shuffle(){
 		//shuffle pile
+		int i = 0;
+		Card temp;
+		for (int k = 0; i < pile.size(); i++){
+			i = (int) (Math.random() * pile.size());
+			if (i != k){
+				temp = pile.get(k);
+				pile.set(k, pile.get(i));
+				pile.set(i, temp);
+			}
+		}
 	}
 	
 	public void add(Card temp){
 		int i = (int) (Math.random() * pile.size());//to a randomePos
+		pile.add(i, temp);
 	}
 }
