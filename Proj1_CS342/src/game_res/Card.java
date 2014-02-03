@@ -43,7 +43,8 @@ public class Card {
 		rank = r;
 	}
 
-	//@Override just to make sure I'm overriding Object.toString()
+	//@Override annotation just to make sure I'm overriding
+	//    Object.toString()
 	//Not necessary
 	@Override
 	public String toString() {

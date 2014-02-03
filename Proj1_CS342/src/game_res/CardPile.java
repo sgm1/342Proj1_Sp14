@@ -111,6 +111,70 @@ public class CardPile {
 		if (isSorted == 0) {
 			int i = (int) (Math.random() * pile.size());// to a random pos
 			pile.add(i, temp);
+		}else if (isSorted == 1){
+			pile.add(temp);
+			sortMajor(false);//lazy way
+		}else{//if isSorted == 2
+			pile.add(temp);
+			sortMajor(true);//lazy way
 		}
+	}
+	
+	/**
+	 * Removes all instances of specified Card
+	 * 
+	 * @param c Card to Remove
+	 * @return Success of removal
+	 */
+	public boolean removeAllCard(Card c){
+		if (pile.contains(c)){
+			pile.remove(c);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Removes an instance of specified Card
+	 * 
+	 * @param c Card to remove
+	 * @return Success of removal
+	 */
+	public boolean removeCard(Card c){
+		if (pile.contains(c)){
+			pile.remove(c);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Pops off and returns top of pile
+	 * 
+	 * @return Top card
+	 */
+	public Card getTop(){
+		if (pile.size() == 0)
+			return null;
+		else return pile.remove(0);
+	}
+	
+	public void addToPile(CardPile other){
+		Card temp = other.getTop();
+		while (temp != null){
+			addCard(temp);
+			temp = other.getTop();
+		}
+	}
+	
+	/**
+	 * Specifies if the pile already contains at least
+	 * an instance of a Card.
+	 * 
+	 * @param c Card to check
+	 * @return card
+	 */
+	public boolean hasCard(Card c){
+		return pile.contains(c);
 	}
 }
