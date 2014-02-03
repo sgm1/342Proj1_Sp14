@@ -12,16 +12,19 @@ public class Card {
 
 	/**
 	 * Allows simplistic creation of custom decks (that allow for duplicate
-	 * cards)
+	 * cards), 0-12 = Diamonds, 13-25 = Clubs, 26-38 = Hearts, 39-51 = Spades 
 	 * 
-	 * @param i
+	 * @param cNum
 	 *            The number based on standard 52 card deck (0 - 51)
 	 */
-	public Card(int i) {
-		if (i < 0)// makes sure that the card number is valid
+	public Card(int cNum) {
+		if (cNum < 0)// makes sure that the card number is valid
 			throw new IllegalArgumentException();
-		suit = (i % 4) + 1;
-		rank = (i % 13) + 1;
+		suit = (cNum % 4) + 1;
+		if (cNum % 13 == 0)
+			rank  = 14;
+		else
+			rank = (cNum % 13) + 1;
 	}
 
 	/**
@@ -30,17 +33,18 @@ public class Card {
 	 * @param s
 	 *            Suit number (1 - 4)
 	 * @param r
-	 *            Suit number (1 - 13)
-	 * @throws Exception
+	 *            Rank number (2 - 14)
 	 */
 	public Card(int s, int r) {
-		if (s < 1 || r < 1 || s > 4 || r > 13)// makes sure that the suit/rank
+		if (s < 1 || r < 2 || s > 4 || r > 14)// makes sure that the suit/rank
 												// number is valid
 			throw new IllegalArgumentException();
 		suit = s;
 		rank = r;
 	}
 
+	//@Override just to make sure I'm overriding Object.toString()
+	//Not necessary
 	@Override
 	public String toString() {
 		String temp = "";
@@ -57,8 +61,11 @@ public class Card {
 			case 12:
 				temp += 'Q';// Queen
 				break;
-			default:
+			case 13:
 				temp += 'K';// King
+				break;
+			default:
+				temp += 'A';// Ace
 				break;
 			}
 		}
@@ -77,5 +84,37 @@ public class Card {
 			break;
 		}
 		return temp;
+	}
+	
+	/**
+	 * Custom compareTo function
+	 * 
+	 * @param other The other Card
+	 * @param sMajor If it is suit major
+	 * @return 0 = equal, 1 = this > other, -1 = this < other
+	 */
+	public int compareTo(Card other, boolean sMajor){
+		if (other.rank == this.rank && other.suit == this.suit)
+			return 0;
+		else if (sMajor){
+			if (this.suit > other.suit)
+				return 1;
+			else if (this.suit < other.suit)
+				return -1;
+			//intentional passing of == case
+			if (this.rank > other.rank)
+				return 1;
+			return -1;
+		} else{
+			if (this.rank > other.rank)
+				return 1;
+			else if (this.rank < other.rank)
+				return -1;
+			//intentional passing of == case
+			if (this.suit > other.suit)
+				return 1;
+			return -1;
+		}
+		
 	}
 }
