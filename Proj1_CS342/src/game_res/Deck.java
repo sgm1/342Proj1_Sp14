@@ -5,7 +5,8 @@ public class Deck extends CardPile{
 	private CardPile discardPile;
 	
 	/**
-	 * Default of a single standard 52 card deck
+	 * A single standard
+	 * (shuffled) 52 card deck
 	 */
 	public Deck() {
 		this(1);
@@ -13,9 +14,9 @@ public class Deck extends CardPile{
 
 	/**
 	 * Creates a deck composed of specified number of
-	 * standard decks
+	 * standard 52 card decks
 	 * 
-	 * @param decks Number of standard decks to combine
+	 * @param decks Number of standard decks to combine, must be greater then 0
 	 */
 	public Deck(int decks) {
 		super(52);
@@ -31,18 +32,28 @@ public class Deck extends CardPile{
 	 * 
 	 * @param c The card being discarded
 	 */
-	void discard(Card c){
+	public void discard(Card c){
 		if (!hasCard(c))
 			throw new IllegalArgumentException();
 		removeCard(c);
 		discardPile.addCard(c);
+		
+	}
+	
+	public Card getTop(){
+		Card temp = super.getTop();
+		if (temp == null){
+			reshuffle();
+			return super.getTop();
+		}
+		return temp;
 	}
 	
 	/**
-	 * Adds back the discard to the deck
+	 * Adds back the discard pile to the deck
 	 */
-	void reshuffle(){
-		addToPile(discardPile);//should empty the discard
+	public void reshuffle(){
+		addToPile(discardPile);//should empty (modify) the discardPile object
 	}
 
 }
