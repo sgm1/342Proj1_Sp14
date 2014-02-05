@@ -11,7 +11,7 @@ public class Game {
 		//System.out.print("Enter number of players : ");
 		//int i = stdIn.nextInt();
 		//System.out.println(i + " players will be created");
-		CardPile temp = new CardPile(52, 2);
+		Deck temp = new Deck();
 		System.out.println(temp);
 		//stdIn.close();
 		//>>>>>>>>>>>>>>>>>>Let's see if you see this<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

@@ -4,12 +4,6 @@ public class Card {
 	public final int suit;
 	public final int rank;
 
-	@SuppressWarnings("unused")
-	private Card() {
-		suit = 0;
-		rank = 0;
-	}// means no one will be able to use default constructor
-
 	/**
 	 * Allows simplistic creation of custom decks (that allow for duplicate
 	 * cards), 0-12 = Diamonds, 13-25 = Clubs, 26-38 = Hearts, 39-51 = Spades 

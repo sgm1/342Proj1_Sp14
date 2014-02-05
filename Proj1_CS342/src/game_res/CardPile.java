@@ -1,6 +1,7 @@
 package game_res;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CardPile {
 	private ArrayList<Card> pile;
@@ -39,11 +40,11 @@ public class CardPile {
 			pile.add(new Card(numCards));
 		}
 		if (sort == 0) {
-			//shuffle();
+			shuffle();
 		} else if (sort == 1)
-			sortMajor(false);// sort rank major
+			sortBySuit(false);// sort rank major
 		else
-			sortMajor(true);// sort suit
+			sortBySuit(true);// sort suit
 	}
 
 	/**
@@ -60,41 +61,9 @@ public class CardPile {
 		this(numCards, 0);
 	}
 
-	/**
-	 * Sorts by suit if true, rank if false.
-	 * 
-	 * @param bySuit
-	 */
-	public void sortMajor(boolean bySuit) {
-		int size = pile.size();
-		int curI;
-		for (int k = 1; k < size; k++) {
-			for (curI = k - 1; curI >= 0 && pile.get(k).compareTo(pile.get(curI), bySuit) > 0; curI--);
-			pile.add(curI + 1, pile.remove(k));// insert
-		}
-	}
-
 	public CardPile(CardPile temp) {// copy constructor
 		pile = new ArrayList<Card>(temp.pile);
 		isSorted = temp.isSorted;
-	}
-
-	/**
-	 * Uses Math.random() to generate random shuffle.
-	 */
-	public void shuffle() {
-		// shuffle pile
-		int i = 0;
-		isSorted = 0;
-		Card temp;
-		for (int k = 0; i < pile.size(); i++) {
-			i = (int) (Math.random() * pile.size());
-			if (i != k) {
-				temp = pile.get(k);
-				pile.set(k, pile.get(i));
-				pile.set(i, temp);
-			}
-		}
 	}
 	
 	@Override
@@ -102,21 +71,72 @@ public class CardPile {
 		int len = pile.size();
 		String temp = "";
 		for(int i = 0; i < len; ++i){
-			temp += pile.get(i) + "\n";
+			temp += pile.get(i) + ", ";
 		}
 		return temp;
 	}
+	public void addToPile(CardPile other){
+		Card temp = other.getTop();
+		while (temp != null){
+			addCard(temp);
+			temp = other.getTop();
+		}
+	}
 
-	public void addCard(Card temp) {
+	/**
+	 * Sorts by suit if true, rank if false.
+	 * 
+	 * @param bySuit
+	 */
+	protected void sortBySuit(boolean bySuit) {
+		int size = pile.size();
+		int curI;
+		for (int k = 1; k < size; k++) {
+			for (curI = k - 1; curI >= 0 && pile.get(k).compareTo(pile.get(curI), bySuit) > 0; curI--);
+			pile.add(curI + 1, pile.remove(k));// insert
+		}
+		if (bySuit)
+			isSorted = 2;
+		else isSorted = 1;
+	}
+	
+	/**
+	 * Specifies if the pile already contains at least
+	 * an instance of a Card.
+	 * 
+	 * @param c Card to check
+	 * @return card
+	 */
+	protected boolean hasCard(Card c){
+		return pile.contains(c);
+	}
+
+	/**
+	 * Uses Math.random() to generate random shuffle.
+	 */
+	protected void shuffle() {
+		// shuffle pile
+		final Random rd = new Random();
+		int i = 0;
+		isSorted = 0;
+		for (int k = 0; i < pile.size(); i++) {
+			i = rd.nextInt(52);
+			if (i != k) {
+				pile.add(i, pile.remove(k));
+			}
+		}
+	}
+
+	protected void addCard(Card temp) {
 		if (isSorted == 0) {
 			int i = (int) (Math.random() * pile.size());// to a random pos
 			pile.add(i, temp);
 		}else if (isSorted == 1){
 			pile.add(temp);
-			sortMajor(false);//lazy way
+			sortBySuit(false);//lazy way
 		}else{//if isSorted == 2
 			pile.add(temp);
-			sortMajor(true);//lazy way
+			sortBySuit(true);//lazy way
 		}
 	}
 	
@@ -126,7 +146,7 @@ public class CardPile {
 	 * @param c Card to Remove
 	 * @return Success of removal
 	 */
-	public boolean removeAllCard(Card c){
+	protected boolean removeAllCard(Card c){
 		if (pile.contains(c)){
 			pile.remove(c);
 			return true;
@@ -140,7 +160,7 @@ public class CardPile {
 	 * @param c Card to remove
 	 * @return Success of removal
 	 */
-	public boolean removeCard(Card c){
+	protected boolean removeCard(Card c){
 		if (pile.contains(c)){
 			pile.remove(c);
 			return true;
@@ -153,28 +173,21 @@ public class CardPile {
 	 * 
 	 * @return Top card
 	 */
-	public Card getTop(){
+	protected Card getTop(){
 		if (pile.size() == 0)
 			return null;
 		else return pile.remove(0);
 	}
 	
-	public void addToPile(CardPile other){
-		Card temp = other.getTop();
-		while (temp != null){
-			addCard(temp);
-			temp = other.getTop();
-		}
+	protected Card get(int i){
+		if (i < 0 || i > pile.size())
+			throw new IllegalArgumentException();
+		return pile.get(i);
 	}
 	
-	/**
-	 * Specifies if the pile already contains at least
-	 * an instance of a Card.
-	 * 
-	 * @param c Card to check
-	 * @return card
-	 */
-	public boolean hasCard(Card c){
-		return pile.contains(c);
+	protected Card remove(int i){
+		if (i < 0 || i > pile.size())
+			throw new IllegalArgumentException();
+		return pile.remove(i);
 	}
 }

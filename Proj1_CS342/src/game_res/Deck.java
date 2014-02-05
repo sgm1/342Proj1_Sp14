@@ -40,6 +40,7 @@ public class Deck extends CardPile{
 		
 	}
 	
+	@Override
 	public Card getTop(){
 		Card temp = super.getTop();
 		if (temp == null){
