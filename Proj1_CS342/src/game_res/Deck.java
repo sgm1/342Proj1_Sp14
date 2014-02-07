@@ -27,8 +27,12 @@ public class Deck extends CardPile{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int getSize(){
+	public int getMaxSize(){
 		return numDecks * 52;
+	}
+	
+	public int getNumCardsLeft(){
+		return this.getNumCards();
 	}
 	
 	/**
@@ -37,20 +41,22 @@ public class Deck extends CardPile{
 	 * @param c The card being discarded
 	 */
 	public void discard(Card c){
-		if (!hasCard(c))
+		if (hasCard(c))
 			throw new IllegalArgumentException();
-		removeCard(c);
+		//removeCard(c);
 		discardPile.addCard(c);
 		discardPile.shuffle();
 	}
 	
-	@Override
 	public Card getTop(){
-		Card temp = super.getTop();
+		/*Card temp = super.getTop();
 		if (temp == null){
 			reshuffle();
 			return super.getTop();
 		}
+		return temp;
+		*/
+		Card temp = super.remove(0);
 		return temp;
 	}
 	

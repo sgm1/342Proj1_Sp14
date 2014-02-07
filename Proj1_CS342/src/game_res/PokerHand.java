@@ -10,10 +10,10 @@ public class PokerHand extends CardPile {
 	// private ArrayList<Card> handForDisplay;
 
 	public PokerHand(Deck d) {
-		super(0, 1);
+		super(0, 1);//zero card deck, sorted by rank
 		if (daDeck == null && d != null)
 			daDeck = d;
-		else if (daDeck != null)
+		if (daDeck == null)
 			throw new IllegalArgumentException();
 		toDisplay = new CardPile();
 		// handForDisplay = new ArrayList<Card>();
@@ -27,7 +27,7 @@ public class PokerHand extends CardPile {
 			if (i < 5)
 				suitCount[i] = 0;
 		}
-		addToPile(daDeck);
+		daDeck.addToPile(this);
 		for (int i = 0; i < 5; ++i) {
 			Card temp = daDeck.getTop();
 			addCard(temp);
@@ -53,6 +53,8 @@ public class PokerHand extends CardPile {
 	
 	public void replace(int h, int ... others) {
 		replace(h);
+		if (others.length > 3)
+			throw new IllegalArgumentException();
 		for (int i = 0; i < others.length; i++){
 			replace (others[i]);
 		}

@@ -12,7 +12,10 @@ public class Game {
 		//int i = stdIn.nextInt();
 		//System.out.println(i + " players will be created");
 		Deck temp = new Deck();
-		System.out.println(temp);
+		PokerHand s = new PokerHand(temp);
+		System.out.println(temp.getNumCardsLeft());
+		System.out.println(s);
+		
 		//stdIn.close();
 		//>>>>>>>>>>>>>>>>>>Let's see if you see this<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//more comments

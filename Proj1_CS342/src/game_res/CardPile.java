@@ -36,8 +36,7 @@ public class CardPile {
 		pile = new ArrayList<Card>();
 		//isSorted = sort;
 		while (numCards > 0) {
-			--numCards;
-			pile.add(new Card(numCards));
+			pile.add(new Card(--numCards));
 		}
 		if (sort == 0) {
 			shuffle();
@@ -76,12 +75,18 @@ public class CardPile {
 		return temp;
 	}
 	public void addToPile(CardPile other){
-		Card temp = other.getTop();
-		while (temp != null){
+		Card temp;
+		int len = other.getNumCards();
+		for(int i = 0; i < len; i++){
+			temp = other.remove(0);
 			addCard(temp);
-			temp = other.getTop();
+			//temp = other.remove(0);
 		}
 		shuffle();
+	}
+	
+	protected int getNumCards(){
+		return pile.size();
 	}
 
 	/**
@@ -121,7 +126,7 @@ public class CardPile {
 		int i = 0;
 		isSorted = 0;
 		for (int k = 0; i < pile.size(); i++) {
-			i = rd.nextInt(52);
+			i = rd.nextInt(pile.size());
 			if (i != k) {
 				pile.add(i, pile.remove(k));
 			}
@@ -168,26 +173,14 @@ public class CardPile {
 		}
 		return false;
 	}
-	
-	/**
-	 * Pops off and returns top of pile
-	 * 
-	 * @return Top card
-	 */
-	protected Card getTop(){
-		if (pile.size() == 0)
-			return null;
-		else return pile.remove(0);
-	}
-	
 	protected Card get(int i){
-		if (i < 0 || i > pile.size())
+		if (i < 0 || i >= pile.size())
 			throw new IllegalArgumentException();
 		return pile.get(i);
 	}
 	
 	protected Card remove(int i){
-		if (i < 0 || i > pile.size())
+		if (i < 0 || i >= pile.size())
 			throw new IllegalArgumentException();
 		return pile.remove(i);
 	}
