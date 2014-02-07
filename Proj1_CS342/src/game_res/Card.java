@@ -1,6 +1,6 @@
 package game_res;
 
-public class Card {
+public final class Card {
 	public final int suit;
 	public final int rank;
 
@@ -99,7 +99,7 @@ public class Card {
 			//intentional passing of == case
 			if (this.rank > other.rank)
 				return 1;
-			return -1;
+			return 0;
 		} else{
 			if (this.rank > other.rank)
 				return 1;
@@ -108,7 +108,7 @@ public class Card {
 			//intentional passing of == case
 			if (this.suit > other.suit)
 				return 1;
-			return -1;
+			return 0;
 		}
 		
 	}

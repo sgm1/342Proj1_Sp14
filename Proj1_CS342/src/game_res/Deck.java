@@ -27,6 +27,10 @@ public class Deck extends CardPile{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public int getSize(){
+		return numDecks * 52;
+	}
+	
 	/**
 	 * Adds the card to the discard pile.
 	 * 
