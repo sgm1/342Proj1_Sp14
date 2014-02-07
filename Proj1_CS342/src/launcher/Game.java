@@ -13,8 +13,11 @@ public class Game {
 		//System.out.println(i + " players will be created");
 		Deck temp = new Deck();
 		PokerHand s = new PokerHand(temp);
+		PokerHand t = new PokerHand(temp);
 		System.out.println(temp.getNumCardsLeft());
-		System.out.println(s);
+		System.out.println("S: " + s);
+		System.out.println("T: " + t);
+		System.out.println(s.compareTo(t) > 0? "S wins": "T wins");
 		
 		//stdIn.close();
 		//>>>>>>>>>>>>>>>>>>Let's see if you see this<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
