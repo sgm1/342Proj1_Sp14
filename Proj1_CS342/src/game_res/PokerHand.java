@@ -1,6 +1,5 @@
 package game_res;
 
-import java.util.ArrayList;
 
 public class PokerHand extends CardPile {
 	private static Deck daDeck = null;// shared among all PokerHands
@@ -31,12 +30,11 @@ public class PokerHand extends CardPile {
 		addToPile(daDeck);
 		for (int i = 0; i < 5; ++i) {
 			Card temp = daDeck.getTop();
-			this.addCard(temp);
+			addCard(temp);
 			++rankCount[temp.rank];
 			if (temp.rank == 14)
 				++rankCount[1];// easily check ace straights
 			++suitCount[temp.suit];
-
 		}
 		sortBySuit(false);
 	}
@@ -52,11 +50,24 @@ public class PokerHand extends CardPile {
 		sortBySuit(false);
 		// return temp;
 	}
+	
+	public void replace(int h, int ... others) {
+		replace(h);
+		for (int i = 0; i < others.length; i++){
+			replace (others[i]);
+		}
+	}
 
 	public Card get(int i) {
 		return super.get(i);
 	}
 
+	/**
+	 * The function to call to compare two poker hands
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public int compareTo(PokerHand other) {
 		int specialsVal = staightAndOrFlushCompare(other);
 		int duplicatesVal = theRestVal() - other.theRestVal(); 

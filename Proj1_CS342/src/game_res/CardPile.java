@@ -81,6 +81,7 @@ public class CardPile {
 			addCard(temp);
 			temp = other.getTop();
 		}
+		shuffle();
 	}
 
 	/**
@@ -129,8 +130,8 @@ public class CardPile {
 
 	protected void addCard(Card temp) {
 		if (isSorted == 0) {
-			int i = (int) (Math.random() * pile.size());// to a random pos
-			pile.add(i, temp);
+			//int i = (int) (Math.random() * pile.size());// to a random pos
+			pile.add(0, temp);
 		}else if (isSorted == 1){
 			pile.add(temp);
 			sortBySuit(false);//lazy way

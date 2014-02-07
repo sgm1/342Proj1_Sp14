@@ -41,7 +41,7 @@ public class Deck extends CardPile{
 			throw new IllegalArgumentException();
 		removeCard(c);
 		discardPile.addCard(c);
-		
+		discardPile.shuffle();
 	}
 	
 	@Override
