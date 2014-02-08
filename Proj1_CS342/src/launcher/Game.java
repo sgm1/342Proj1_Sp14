@@ -1,14 +1,13 @@
 package launcher;
 
 import java.util.Scanner;
-
 import game_res.*;
 
 public class Game {
 
 	public static void main(String[] args) {
 		//Scanner stdIn = new Scanner (System.in);
-		//System.out.print("Enter number of players : ");
+		//System.out.print("Enter number of players (max 9) : ");// PLEASE RESTRICT TO MAX 9
 		//int i = stdIn.nextInt();
 		//System.out.println(i + " players will be created");
 		Deck temp = new Deck();

@@ -1,14 +1,17 @@
 package game_res;
 
-
 public class PokerHand extends CardPile {
 	private static Deck daDeck = null;// shared among all PokerHands
 	private int rankCount[] = new int[15];
 	private int suitCount[] = new int[5];
 	private CardPile toDisplay;
-
-	// private ArrayList<Card> handForDisplay;
-
+	
+	/**
+	 * Deck to be used for poker game. Currently
+	 * restricted to 1 deck for all PokerHand's.
+	 * 
+	 * @param d The Deck to use (first deck passed will be used).
+	 */
 	public PokerHand(Deck d) {
 		super(0, 1);//zero card deck, sorted by rank
 		if (daDeck == null && d != null)
@@ -21,6 +24,9 @@ public class PokerHand extends CardPile {
 		sortBySuit(false);
 	}
 
+	/**
+	 * Draws the initial 5 cards from deck.
+	 */
 	private void drawFiveCards() {
 		for (int i = 0; i < 15; ++i) {
 			rankCount[i] = 0;
@@ -39,27 +45,42 @@ public class PokerHand extends CardPile {
 		sortBySuit(false);
 	}
 
-	public void replace(int i) {
-		Card temp = remove(i);
+	/**
+	 * Replace a specific index of a
+	 * Card.
+	 * 
+	 * @param i Index of the card to be replaced.
+	 */
+	public void replace(int h) {
+		if(h < 0 || h > 4 || get(h).rank == 14)
+			throw new IllegalArgumentException("Invalid replace card index.");
+		Card temp = remove(h);
 		--rankCount[temp.rank];
 		--suitCount[temp.suit];
+		if (temp.rank == 14)
+			--rankCount[1];// easily check ace straights
 		temp = daDeck.getTop();
 		addCard(temp);
 		++rankCount[temp.rank];
 		++suitCount[temp.suit];
+		if (temp.rank == 14)
+			++rankCount[1];// easily check ace straights
 		sortBySuit(false);
 		// return temp;
 	}
 	
-	public void replace(int h, int ... others) {
+	public void replace(int h, int ... otherIndecies) {
+		if (otherIndecies.length > 4)
+			throw new IllegalArgumentException("Too many Cards to replace.");
 		replace(h);
-		if (others.length > 3)
-			throw new IllegalArgumentException();
-		for (int i = 0; i < others.length; i++){
-			replace (others[i]);
+		for (int i = 0; i < otherIndecies.length; i++){
+			replace (otherIndecies[i]);
 		}
 	}
-
+	
+	/**
+	 * Examine a specific card index
+	 */
 	public Card get(int i) {
 		return super.get(i);
 	}
@@ -78,18 +99,28 @@ public class PokerHand extends CardPile {
 		else return duplicatesVal;
 	}
 
+	/**
+	 * This function is used to determine if either hand had
+	 * a flush and a straight (and if so of leading value
+	 * is used to determine winer).
+	 * Then it proceeds to determine if either had a flush
+	 * and finally if either had a straight.   
+	 * 
+	 * @param other PokerHand to compare to.
+	 * @return Negative = other wins, positive = this wins, 0 = tie
+	 */
 	private int staightAndOrFlushCompare(PokerHand other) {
 		int fl = flushCompare(other);
 		int st = straightCompare(other);
-		if (fl == 0 && isFlush()) {
+		if (other.isFlush() && isFlush() && (other.isFlush() || isFlush())) {//is str8 flush
 			return (st / 100) * 10000;// if a str8 flush, no suit info
 		} else if (fl != 0)
 			return fl;
-		else return st;
+		else return st;//uses suit info, if perfect tie of rank
 	}
 
 	private boolean isFlush() {
-		for (int i : suitCount) {
+		for (int i : suitCount) {//for each loop
 			if (i == 5)
 				return true;
 		}
@@ -99,11 +130,18 @@ public class PokerHand extends CardPile {
 	private int flushCompare(PokerHand other) {
 		sortBySuit(false);
 		int thisVal = 0, otherVal = 0;
-		if (isFlush())
-			thisVal = get(4).rank;// easily compare rank of high
-		if (other.isFlush())
-			otherVal = other.get(4).rank;// easily compare rank of high
-		return thisVal - otherVal;
+		boolean isF = isFlush(), otherIsF = other.isFlush();
+		if (isF && otherIsF){
+			int comp = 0;
+			for (int i = 0; i < 5 && comp == 0; ++i){
+				comp = get(i).rank - other.get(i).rank;
+			}
+			return comp; //compare top ranks loop, in cas eof ties
+		}else if (isF)
+			return 1;
+		else if (otherIsF)
+			return -1;
+		else return 0;
 	}
 
 	private boolean isStraight() {
