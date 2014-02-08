@@ -86,6 +86,8 @@ public class CardPile {
 	 * @param other CardPile to add to this
 	 */
 	public void addToPile(CardPile other){
+		if (other == null)
+			return;
 		Card temp;
 		int len = other.getNumCards();
 		for(int i = 0; i < len; i++){
@@ -101,7 +103,7 @@ public class CardPile {
 	}
 	
 	/**
-	 * Returns the size of cards.
+	 * Returns the number of cards.
 	 * 
 	 * @return Number of cards
 	 */

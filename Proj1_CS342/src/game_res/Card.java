@@ -13,7 +13,7 @@ public final class Card {
 	 */
 	public Card(int cNum) {
 		if (cNum < 0)// makes sure that the card number is valid
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Can't be negative Card param");
 		suit = (cNum % 4) + 1;
 		if (cNum % 13 == 0)
 			rank  = 14;
@@ -32,15 +32,15 @@ public final class Card {
 	public Card(int s, int r) {
 		if (s < 1 || r < 2 || s > 4 || r > 14)// makes sure that the suit/rank
 												// number is valid
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid suit and/or rank");
 		suit = s;
 		rank = r;
 	}
 
-	//@Override annotation just to make sure I'm overriding
-	//    Object.toString()
-	//Not necessary
-	@Override
+	/**
+	 * String to represent the card 
+	 */
+	@Override //@Override annotation makes sure I'm overriding Object.toString()
 	public String toString() {
 		String temp = "";
 		if (rank < 10)

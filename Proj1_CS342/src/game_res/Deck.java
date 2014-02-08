@@ -24,13 +24,22 @@ public class Deck extends CardPile{
 			throw new IllegalArgumentException();
 		numDecks = decks;
 		discardPile = new CardPile();
-		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Starting size of the deck
+	 * 
+	 * @return Number of Cards
+	 */
 	public int getMaxSize(){
 		return numDecks * 52;
 	}
 	
+	/**
+	 * Number of cards left.
+	 * 
+	 * @return Number of Cards
+	 */
 	public int getNumCardsLeft(){
 		return this.getNumCards();
 	}
@@ -48,6 +57,11 @@ public class Deck extends CardPile{
 		discardPile.shuffle();
 	}
 	
+	/**
+	 * Removes top of deck
+	 * 
+	 * @return Card being removed
+	 */
 	public Card getTop(){
 		/*Card temp = super.getTop();
 		if (temp == null){
@@ -56,8 +70,7 @@ public class Deck extends CardPile{
 		}
 		return temp;
 		*/
-		Card temp = super.remove(0);
-		return temp;
+		return super.remove(0);
 	}
 	
 	/**

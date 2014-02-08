@@ -5,7 +5,7 @@ public class PokerHand extends CardPile {
 	private int rankCount[] = new int[15];
 	private int suitCount[] = new int[5];
 	private int typeOfHand;
-	private CardPile toDisplay;
+	private int printOrder[] = new int[5]; 
 	
 	/**
 	 * Deck to be used for poker game. Currently
@@ -19,10 +19,10 @@ public class PokerHand extends CardPile {
 			daDeck = d;
 		if (daDeck == null)
 			throw new IllegalArgumentException();
-		toDisplay = new CardPile();
 		// handForDisplay = new ArrayList<Card>();
 		drawFiveCards();
 		sortBySuit(false);
+		theRestVal();//set typeOfHand for toString
 	}
 
 	/**
@@ -54,9 +54,9 @@ public class PokerHand extends CardPile {
 	 * @param i Index of the card to be replaced.
 	 */
 	public void replace(int h) {
-		if(h < 0 || h > 4 || get(h).rank == 14)
+		if(h < 0 || h > 4)
 			throw new IllegalArgumentException("Invalid replace card index.");
-		Card temp = remove(h);
+		Card temp = remove(printOrder[h]);
 		--rankCount[temp.rank];
 		--suitCount[temp.suit];
 		if (temp.rank == 14)
@@ -68,6 +68,7 @@ public class PokerHand extends CardPile {
 		if (temp.rank == 14)
 			++rankCount[1];// easily check ace straights
 		sortBySuit(false);
+		theRestVal();
 		// return temp;
 	}
 	
@@ -78,7 +79,7 @@ public class PokerHand extends CardPile {
 	 * @param h
 	 * @param otherIndecies
 	 */
-	public void replace(int h, int ... otherIndecies) {
+	public void replace(int h, int ... otherIndecies) {//TODO Need to fix
 		if (otherIndecies.length > 4)
 			throw new IllegalArgumentException("Too many Cards to replace.");
 		if (otherIndecies.length == 4){
@@ -116,17 +117,65 @@ public class PokerHand extends CardPile {
 	public int compareTo(PokerHand other) {
 		int specialsVal = staightAndOrFlushCompare(other);
 		int duplicatesVal = theRestVal() - other.theRestVal(); 
-		if (specialsVal != 0)
+		if (specialsVal != 0){
+			typeOfHand = 0;
 			return specialsVal;
+		}
 		else return duplicatesVal;
 	}
 	
+	/**
+	 * Prints the major 2/3/4 of a kind first,
+	 * then the rest of teh cards
+	 */
 	@Override
 	public String toString(){
+		//System.out.println("Type of hand: " + typeOfHand);
 		if (typeOfHand == 0)
 			return super.toString();
 		String temp = "";
-		
+		if (typeOfHand == 1){
+			for (int i = 0, j = 0, k = 2; i < 5; i++){
+				if (rankCount[get(i).rank] == 2){
+					printOrder[j] = i;
+					j++;
+				}else{
+					printOrder[k] = i;
+					k++;
+				}
+			}
+		}else if (typeOfHand == 2){
+			for (int i = 0, j = 0; i < 5; i++){
+				if (rankCount[get(i).rank] == 2){
+					printOrder[j] = i;
+					j++;
+				}
+				if (i < 4)
+					printOrder[4] = i;
+			}
+		}else if (typeOfHand == 3){
+			for (int i = 0, j = 0, k = 3; i < 5; i++){
+				if (rankCount[get(i).rank] == 3){
+					printOrder[j] = i;
+					j++;
+				}else{
+					printOrder[k] = i;
+					k++;
+				}
+			}
+		}else if (typeOfHand == 4){
+			for (int i = 0, j = 0; i < 5; i++){
+				if (rankCount[get(i).rank] == 4){
+					printOrder[j] = i;
+					j++;
+				}else{
+					printOrder[4] = i;
+				}
+			}
+		}
+		for (int i = 0; i < 5; i++){
+			temp += get(printOrder[i]) + ", ";
+		}
 		return temp;
 	}
 
@@ -210,6 +259,7 @@ public class PokerHand extends CardPile {
 	
 	/**
 	 * Evaluates a meta value to compare
+	 * after straights and flushes
 	 * Best to least powerful:
 	 * >Five of a kind (for multiple decks)
 	 * >Four of a kind
@@ -225,22 +275,42 @@ public class PokerHand extends CardPile {
 		int val = 0;
 		int base = 0;//to take care of high card
 		boolean foundTwoOfAKind = false;
+		typeOfHand = -1;
+		if (isFlush() || isStraight()){
+			typeOfHand = 0;
+			return 0x7FFFFFFF;// this return shouldn't really be used
+		}
+			
 		for (int i = 0; i < 15; i++) {
-			if (rankCount[i] == 1 && i > base)
+			if (rankCount[i] == 1 && i > base){
 				base = i;
-			if(!foundTwoOfAKind && rankCount[i] == 2)
+			}
+			if(!foundTwoOfAKind && rankCount[i] == 2){
+				typeOfHand = 1;
 				val += rankCount[i] * 100;
-			if(foundTwoOfAKind && rankCount[i] == 2)
+			}
+			if(foundTwoOfAKind && rankCount[i] == 2){
+				typeOfHand = 2;
 				val += rankCount[i] * 10000;
-			if(rankCount[i] == 3)
+			}
+			if(rankCount[i] == 3){
+				typeOfHand = 3;// should take care of fullhouse too
 				val += rankCount[i] * 1000000;
-			if(rankCount[i] == 4)
+			}
+			if(rankCount[i] == 4){
+				typeOfHand = 4;
+				typeOfHand = 2;
 				val += rankCount[i] * 100000000;
-			if(rankCount[i] == 5)//multiple decks?
+			}
+			if(rankCount[i] == 5){//multiple decks?
+				typeOfHand = 0;
 				val = 0x7FFFFFFF;//max_int32
+			}
 		}
 		val += base;
-		typeOfHand = val;
+		if (typeOfHand == -1){
+			typeOfHand = 0;
+		}
 		return val;
 	}
 }
