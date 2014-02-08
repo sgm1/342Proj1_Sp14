@@ -60,6 +60,10 @@ public class CardPile {
 		this(numCards, 0);
 	}
 
+	/**
+	 * Copy constructor
+	 * @param temp CardPile to copy 
+	 */
 	public CardPile(CardPile temp) {// copy constructor
 		pile = new ArrayList<Card>(temp.pile);
 		isSorted = temp.isSorted;
@@ -74,17 +78,33 @@ public class CardPile {
 		}
 		return temp;
 	}
+	
+	/**
+	 * Add the other pile to this pile
+	 * and empties the other pile in
+	 * the process
+	 * @param other CardPile to add to this
+	 */
 	public void addToPile(CardPile other){
 		Card temp;
 		int len = other.getNumCards();
 		for(int i = 0; i < len; i++){
 			temp = other.remove(0);
 			addCard(temp);
-			//temp = other.remove(0);
 		}
-		shuffle();
+		if (isSorted == 0)
+			shuffle();
+		else if (isSorted == 1)
+			sortBySuit(false);
+		else
+			sortBySuit(false);
 	}
 	
+	/**
+	 * Returns the size of cards.
+	 * 
+	 * @return Number of cards
+	 */
 	protected int getNumCards(){
 		return pile.size();
 	}
@@ -118,7 +138,7 @@ public class CardPile {
 	}
 
 	/**
-	 * Uses Math.random() to generate random shuffle.
+	 * Uses Random to generate random shuffle.
 	 */
 	protected void shuffle() {
 		// shuffle pile
@@ -133,6 +153,11 @@ public class CardPile {
 		}
 	}
 
+	/**
+	 * Add specific Card to CardPile
+	 * 
+	 * @param temp Card to add
+	 */
 	protected void addCard(Card temp) {
 		if (isSorted == 0) {
 			//int i = (int) (Math.random() * pile.size());// to a random pos
@@ -173,12 +198,23 @@ public class CardPile {
 		}
 		return false;
 	}
+	
+	/**
+	 * Card to retrieve.
+	 * @param i Index
+	 * @return Card at index
+	 */
 	protected Card get(int i){
 		if (i < 0 || i >= pile.size())
 			throw new IllegalArgumentException();
 		return pile.get(i);
 	}
 	
+	/**
+	 * Remove specified card.
+	 * @param i Index to remove.
+	 * @return Card removed.
+	 */
 	protected Card remove(int i){
 		if (i < 0 || i >= pile.size())
 			throw new IllegalArgumentException();

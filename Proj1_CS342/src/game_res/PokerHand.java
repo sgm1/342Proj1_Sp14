@@ -4,6 +4,7 @@ public class PokerHand extends CardPile {
 	private static Deck daDeck = null;// shared among all PokerHands
 	private int rankCount[] = new int[15];
 	private int suitCount[] = new int[5];
+	private int typeOfHand;
 	private CardPile toDisplay;
 	
 	/**
@@ -39,7 +40,7 @@ public class PokerHand extends CardPile {
 			addCard(temp);
 			++rankCount[temp.rank];
 			if (temp.rank == 14)
-				++rankCount[1];// easily check ace straights
+				++rankCount[1];// easily check ace straight
 			++suitCount[temp.suit];
 		}
 		sortBySuit(false);
@@ -48,6 +49,7 @@ public class PokerHand extends CardPile {
 	/**
 	 * Replace a specific index of a
 	 * Card.
+	 * Check validity before call.
 	 * 
 	 * @param i Index of the card to be replaced.
 	 */
@@ -69,9 +71,29 @@ public class PokerHand extends CardPile {
 		// return temp;
 	}
 	
+	/**
+	 * Practically "overload" for all Poker hands,
+	 * Should check for validity before call.
+	 * 
+	 * @param h
+	 * @param otherIndecies
+	 */
 	public void replace(int h, int ... otherIndecies) {
 		if (otherIndecies.length > 4)
 			throw new IllegalArgumentException("Too many Cards to replace.");
+		if (otherIndecies.length == 4){
+			int acesLeft = 0;
+			for (int i = 0; i < 5; ++i) {
+				if (get(i).rank == 14){
+					acesLeft++;
+				}
+				if (i < otherIndecies.length){
+					acesLeft--;
+				}
+			}
+			if (acesLeft < 1)
+				throw new IllegalArgumentException("Remaining card must be an ace");
+		}
 		replace(h);
 		for (int i = 0; i < otherIndecies.length; i++){
 			replace (otherIndecies[i]);
@@ -97,6 +119,15 @@ public class PokerHand extends CardPile {
 		if (specialsVal != 0)
 			return specialsVal;
 		else return duplicatesVal;
+	}
+	
+	@Override
+	public String toString(){
+		if (typeOfHand == 0)
+			return super.toString();
+		String temp = "";
+		
+		return temp;
 	}
 
 	/**
@@ -127,9 +158,14 @@ public class PokerHand extends CardPile {
 		return false;
 	}
 
+	/**
+	 * Compares flush, if one exists between the hands
+	 * 
+	 * @param other
+	 * @return
+	 */
 	private int flushCompare(PokerHand other) {
 		sortBySuit(false);
-		int thisVal = 0, otherVal = 0;
 		boolean isF = isFlush(), otherIsF = other.isFlush();
 		if (isF && otherIsF){
 			int comp = 0;
@@ -155,6 +191,8 @@ public class PokerHand extends CardPile {
 				count = 0;
 			}
 		}
+		if (count == 5)
+			return true;
 		return false;
 	}
 
@@ -170,6 +208,19 @@ public class PokerHand extends CardPile {
 		return thisVal - otherVal;
 	}
 	
+	/**
+	 * Evaluates a meta value to compare
+	 * Best to least powerful:
+	 * >Five of a kind (for multiple decks)
+	 * >Four of a kind
+	 * >Full house
+	 * >Three of a kind
+	 * >Two pair
+	 * >Pair
+	 * >High card 
+	 * 
+	 * @return
+	 */
 	private int theRestVal(){
 		int val = 0;
 		int base = 0;//to take care of high card
@@ -189,6 +240,7 @@ public class PokerHand extends CardPile {
 				val = 0x7FFFFFFF;//max_int32
 		}
 		val += base;
+		typeOfHand = val;
 		return val;
 	}
 }
