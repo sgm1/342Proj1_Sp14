@@ -5,7 +5,7 @@ public class PokerHand extends CardPile {
 	private int rankCount[] = new int[15];
 	private int suitCount[] = new int[5];
 	private int typeOfHand;
-	private int printOrder[] = new int[5]; 
+	private int printOrder[]; 
 	
 	/**
 	 * Deck to be used for poker game. Currently
@@ -21,8 +21,7 @@ public class PokerHand extends CardPile {
 			throw new IllegalArgumentException();
 		// handForDisplay = new ArrayList<Card>();
 		drawFiveCards();
-		sortBySuit(false);
-		theRestVal();//set typeOfHand for toString
+		theRestVal();
 	}
 
 	/**
@@ -60,13 +59,13 @@ public class PokerHand extends CardPile {
 		--rankCount[temp.rank];
 		--suitCount[temp.suit];
 		if (temp.rank == 14)
-			--rankCount[1];// easily check ace straights
+			--rankCount[1];// easily check ace 4 straights
 		temp = daDeck.getTop();
 		addCard(temp);
 		++rankCount[temp.rank];
 		++suitCount[temp.suit];
 		if (temp.rank == 14)
-			++rankCount[1];// easily check ace straights
+			++rankCount[1];// easily check ace 4 straights
 		sortBySuit(false);
 		theRestVal();
 		// return temp;
@@ -79,30 +78,38 @@ public class PokerHand extends CardPile {
 	 * @param h
 	 * @param otherIndecies
 	 */
-	public void replace(int h, int ... otherIndecies) {//TODO Need to fix
-		if (otherIndecies.length > 4)
+	public void replace(int h, int ... otherIndecies) {
+		if (otherIndecies.length > 3)
 			throw new IllegalArgumentException("Too many Cards to replace.");
-		if (otherIndecies.length == 4){
-			int acesLeft = 0;
-			for (int i = 0; i < 5; ++i) {
-				if (get(i).rank == 14){
-					acesLeft++;
-				}
-				if (i < otherIndecies.length){
-					acesLeft--;
-				}
+		if (otherIndecies.length == 3){
+			int indexToCheck = 1 + 2 + 3 + 4 - h;
+			for (int i = 0; i < 3; ++i) {
+				indexToCheck -= otherIndecies[i];
 			}
-			if (acesLeft < 1)
-				throw new IllegalArgumentException("Remaining card must be an ace");
+			if (get(indexToCheck).rank == 14)//TODO throw error, or print out error?
+				throw new IllegalArgumentException("Remaining card must be an ace, when dicarding 4");
 		}
-		replace(h);
+		replaceHelper(h);
 		for (int i = 0; i < otherIndecies.length; i++){
-			replace (otherIndecies[i]);
+			replaceHelper (otherIndecies[i]);
 		}
+		sortBySuit(false);
+		theRestVal();
 	}
 	
 	/**
-	 * Examine a specific card index
+	 * Examine a specific card index (same as
+	 * printed order).
+	 * @param i
+	 * @return
+	 */
+	public Card getDisplayedCard(int i){
+		return get(printOrder[i]);
+	}
+	
+	/**
+	 * Examine a specific card index (maybe be different
+	 * from printed order)
 	 */
 	public Card get(int i) {
 		return super.get(i);
@@ -139,7 +146,7 @@ public class PokerHand extends CardPile {
 				if (rankCount[get(i).rank] == 2){
 					printOrder[j] = i;
 					j++;
-				}else{
+				}else if (rankCount[get(i).rank] == 1){
 					printOrder[k] = i;
 					k++;
 				}
@@ -174,9 +181,37 @@ public class PokerHand extends CardPile {
 			}
 		}
 		for (int i = 0; i < 5; i++){
-			temp += get(printOrder[i]) + ", ";
+			temp += getDisplayedCard(i) + ", ";
 		}
+		//System.out.println("Type: " + typeOfHand + " Actual :" + super.toString());
 		return temp;
+	}
+	
+	@Override
+	protected void sortBySuit(boolean b){
+		super.sortBySuit(b);
+		printOrder = new int[5];
+		for (int i = 0; i < 5; ++i) {
+			printOrder[i] = i;
+		}
+	}
+	
+	private void replaceHelper(int h) {
+		if(h < 0 || h > 4)
+			throw new IllegalArgumentException("Invalid replace card index.");
+		
+		Card temp = remove(printOrder[h]);
+		--rankCount[temp.rank];
+		--suitCount[temp.suit];
+		if (temp.rank == 14)
+			--rankCount[1];// easily check ace 4 straights
+		temp = daDeck.getTop();
+		addCard(temp, printOrder[h]);
+		++rankCount[temp.rank];
+		++suitCount[temp.suit];
+		if (temp.rank == 14)
+			++rankCount[1];// easily check ace 4 straights
+		// return temp;
 	}
 
 	/**

@@ -16,9 +16,10 @@ public class Game {
 		System.out.println(temp.getNumCardsLeft());
 		System.out.println("S: " + s);
 		System.out.println("T: " + t);
-		t.replace(4);
-		t.replace(3);
-		System.out.println("Replace 4, T: " + t);
+		System.out.println("   0   1   2   3   4");
+		t.replace(0, 1);
+		//t.replace(3);
+		System.out.println("Replace 0, 1 (may be reordered), T: " + t);
 		System.out.print(s.compareTo(t) > 0? "S wins": "T wins");
 		
 		//stdIn.close();

@@ -172,6 +172,15 @@ public class CardPile {
 			sortBySuit(true);//lazy way
 		}
 	}
+
+	/**
+	 * Add specific Card to CardPile
+	 * 
+	 * @param temp Card to add
+	 */
+	protected void addCard(Card temp, int i) {
+		pile.add(i, temp);
+	}
 	
 	/**
 	 * Removes all instances of specified Card

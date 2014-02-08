@@ -63,13 +63,6 @@ public class Deck extends CardPile{
 	 * @return Card being removed
 	 */
 	public Card getTop(){
-		/*Card temp = super.getTop();
-		if (temp == null){
-			reshuffle();
-			return super.getTop();
-		}
-		return temp;
-		*/
 		return super.remove(0);
 	}
 	
