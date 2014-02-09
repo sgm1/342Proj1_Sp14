@@ -44,6 +44,20 @@ public class PokerHand extends CardPile {
 		}
 		sortBySuit(false);
 	}
+	
+	/**
+	 * If value is greater than 14, better than a pair
+	 * 
+	 *  Otherwise the greatest card is returned
+	 * 
+	 * @return Meta value for hand.
+	 */
+	public int getMetaValue(){
+		int temp = theRestVal();//sets type of hand
+		if (typeOfHand == 0)
+			return 0x7FFFFFFF;
+		else return temp;
+	}
 
 	/**
 	 * Replace a specific index of a
@@ -108,6 +122,8 @@ public class PokerHand extends CardPile {
 	}
 	
 	/**
+	 * Maybe want to use getDisplayedCard!!!
+	 * 
 	 * Examine a specific card index (maybe be different
 	 * from printed order)
 	 */

@@ -21,6 +21,7 @@ public class Game {
 		//t.replace(3);
 		System.out.println("Replace 0, 1 (may be reordered), T: " + t);
 		System.out.print(s.compareTo(t) > 0? "S wins": "T wins");
+
 		
 		//stdIn.close();
 		//>>>>>>>>>>>>>>>>>>Let's see if you see this<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
