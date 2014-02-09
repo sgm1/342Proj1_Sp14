@@ -6,7 +6,8 @@ public class Enemy extends Player {
 	 * Basically an automated version
 	 * of the Player
 	 */
-	public Enemy() {
+	public Enemy(int numPlayers, Deck deckToUse){
+		
 	}
 
 }

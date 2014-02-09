@@ -63,6 +63,8 @@ public class Deck extends CardPile{
 	 * @return Card being removed
 	 */
 	public Card getTop(){
+		if (getNumCardsLeft() == 0)
+			addToPile(discardPile);
 		return super.remove(0);
 	}
 	

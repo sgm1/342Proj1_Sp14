@@ -74,6 +74,7 @@ public class PokerHand extends CardPile {
 		--suitCount[temp.suit];
 		if (temp.rank == 14)
 			--rankCount[1];// easily check ace 4 straights
+		daDeck.discard(temp);
 		temp = daDeck.getTop();
 		addCard(temp);
 		++rankCount[temp.rank];
@@ -221,6 +222,7 @@ public class PokerHand extends CardPile {
 		--suitCount[temp.suit];
 		if (temp.rank == 14)
 			--rankCount[1];// easily check ace 4 straights
+		daDeck.discard(temp);
 		temp = daDeck.getTop();
 		addCard(temp, printOrder[h]);
 		++rankCount[temp.rank];
