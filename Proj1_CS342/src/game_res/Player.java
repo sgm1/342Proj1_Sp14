@@ -1,9 +1,9 @@
 package game_res;
 
 public class Player {
-	private Player nextPlayer;
 	private PokerHand hd;
-	
+
+	protected Player nextPlayer;
 	protected static Player winnerThusFar;
 	
 	protected Player(Deck deckToUse){ }
