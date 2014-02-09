@@ -6,13 +6,11 @@ public class Player {
 	
 	protected static Player winnerThusFar;
 	
-	protected Player(){
-		
-	}
+	protected Player(Deck deckToUse){ }
 
 	/**
 	 * Recursively creates a group of players to
-	 * player poker
+	 * player poker. Practically a Linked List.
 	 * 
 	 * Player will go first, followed by numPlayerAndEnemies - 1
 	 * AI players

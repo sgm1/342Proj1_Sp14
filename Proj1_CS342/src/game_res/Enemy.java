@@ -7,6 +7,7 @@ public class Enemy extends Player {
 	 * of the Player
 	 */
 	public Enemy(int numPlayers, Deck deckToUse){
+		super(deckToUse);
 		
 	}
 
