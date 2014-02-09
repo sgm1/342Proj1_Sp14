@@ -10,7 +10,7 @@ public class Player {
 
 	/**
 	 * Recursively creates a group of players to
-	 * player poker. Practically a Linked List.
+	 * player poker. Practically a Linked List. 
 	 * 
 	 * Player will go first, followed by numPlayerAndEnemies - 1
 	 * AI players
