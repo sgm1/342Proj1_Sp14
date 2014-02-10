@@ -19,5 +19,7 @@ public class Game {
 		//stdIn.close();
 		//>>>>>>>>>>>>>>>>>>Let's see if you see this<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//more comments
+		
+		//System.out.println("How many players total?");
 	}
 }

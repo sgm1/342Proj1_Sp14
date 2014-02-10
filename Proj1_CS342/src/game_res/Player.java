@@ -1,7 +1,9 @@
 package game_res;
 
+import java.util.Scanner;
+
 public class Player {
-	private Player nextPlayer;
+	
 	private PokerHand hd;
 	
 	protected static Player winnerThusFar;
@@ -27,4 +29,6 @@ public class Player {
 		if (numPlayerAndEnemies > 1)
 			nextPlayer = new Enemy(numPlayerAndEnemies - 1, deckToUse);
 	}
+	
+	
 }
