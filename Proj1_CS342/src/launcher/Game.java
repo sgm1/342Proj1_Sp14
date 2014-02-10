@@ -41,20 +41,22 @@ public class Game {
 		
 		/**
 		 * Compares all metascores and ultimately decides who has the 
-		 * best hand. Will eventually print the hand and type
+		 * best hand. Assumes user is winner, checks if valid..
+		 * Will eventually print the hand and type
 		 */
-		int winner = 0;
-		int highScore = 0;
-		for(int i=0; i<numOpponents+1; i++){
+		int winner = 100; //cannot have this many players, so safe value to represent user
+		int highScore = playerScores[numOpponents];
+		
+		for(int i=0; i<numOpponents; i++){
 			if(playerScores[i]>highScore) {
-				winner = i;
+				winner = (i+1);
 				highScore = playerScores[i];
 			}
 		}
-		if(winner>=0 && winner<(numOpponents+1))
-			System.out.println("Player " + (winner+1) + " is the winner, with a...");
-		else
+		if(winner==100)
 			System.out.println("You win! with a...");
+		else
+			System.out.println("Player " + winner + " is the winner, with a...");
 		
 	}
 }

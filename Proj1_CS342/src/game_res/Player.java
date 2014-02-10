@@ -94,7 +94,7 @@ public class Player {
 				else throw new IllegalArgumentException("Can only discard cards " 
 					+ "with and index of 1 through 5");
 				//need help implementing either replace method, tried both; h??
-				System.out.println("Discarded user card at index " + (index+1));
+				System.out.println("Replaced user card at index " + (index+1));
 			}
 			
 		}
