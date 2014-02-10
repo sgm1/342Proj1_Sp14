@@ -12,7 +12,6 @@ public class Game {
 		
 		//System.out.println(gameDeck.getNumCardsLeft());
 		//t.replace(3);
-		//stdIn.close();
 		
 		System.out.print("How many players? (max 10) : ");
 		int numOpponents = stdIn.nextInt()-1;
@@ -44,19 +43,25 @@ public class Game {
 		 * best hand. Assumes user is winner, checks if valid..
 		 * Will eventually print the hand and type
 		 */
+		user.showHand();
 		int winner = 100; //cannot have this many players, so safe value to represent user
 		int highScore = playerScores[numOpponents];
 		
 		for(int i=0; i<numOpponents; i++){
+			opponents[i].showOppHand();
 			if(playerScores[i]>highScore) {
 				winner = (i+1);
 				highScore = playerScores[i];
 			}
 		}
-		if(winner==100)
+		if(winner==100) {
 			System.out.println("You win! with a...");
-		else
-			System.out.println("Player " + winner + " is the winner, with a...");
+			user.showHand(); }
+		else {
+			System.out.println("Opponent " + winner + " is the winner, with a...");
+			opponents[winner-1].showOppHand(); }
 		
+		System.out.println("Thank you for paying!");
+		stdIn.close();
 	}
 }

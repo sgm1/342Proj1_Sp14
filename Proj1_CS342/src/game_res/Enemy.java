@@ -20,14 +20,13 @@ public class Enemy extends Player {
 	}
 	
 	public int opponentTurn() {
-		showOppHand();
 		oppDiscardPhase();
-		showOppHand();
+		//showOppHand();
 		return evaluateOppPhase();
 	}
 	
 	public void showOppHand() {
-		System.out.print("Opponent " + oppNumber + "'s hand: ");
+		System.out.print("Opp" + oppNumber + " hand: ");
 		for(int i=0; i<super.hand; i++){
 			System.out.print(i+1 +") [" + hdo.getDisplayedCard(i) + "]  ");
 		}
@@ -36,7 +35,7 @@ public class Enemy extends Player {
 	
 	private void oppDiscardPhase() {
 		// follow AI outline 
-		System.out.println("Player " + oppNumber + " discarded nothing, as he can't think yet!" );
+		System.out.println("Opponent " + oppNumber + " discarded nothing, as can't think yet!" );
 		evaluateOppPhase();
 	}
 

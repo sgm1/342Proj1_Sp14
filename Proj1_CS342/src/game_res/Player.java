@@ -45,7 +45,7 @@ public class Player {
 	 */
 	public void showHand() {
 		System.out.print("Your hand: ");
-		for(int i=0; i<hand; i++){
+		for(int i=0; i<hand; i++) {
 			System.out.print(i+1 +") [" + hd.getDisplayedCard(i) + "]  ");
 		}
 		System.out.println("");
@@ -86,25 +86,20 @@ public class Player {
 						if(aceCount<1) 
 							throw new IllegalArgumentException("When choosing to " 
 									+ "discard 4 cards, cannot discard last Ace");
-						}
+					}
 				}
-					
+				
 				if(index>(0-1) && index<(5+1))
 					indices[i] = index;
 				else throw new IllegalArgumentException("Can only discard cards " 
 					+ "with and index of 1 through 5");
-				//need help implementing either replace method, tried both; h??
 				System.out.println("Replaced user card at index " + (index+1));
 			}
-			
 		}
 	}
-	
 	private void redrawPhase() {
 		for(int i=0; i<numToReplace; i++) {
-			hd.replace(indices[i]);
-		}
-		this.showHand();
+			hd.replace(indices[i]); }
 	}
 	
 }
