@@ -9,11 +9,12 @@ public class Player {
 	protected int hand = 5;
 	int aceCount = 0;
 	boolean ace = false;
+	boolean flush = false;
+	boolean straight = false;
 	int numToReplace = 0;
 	int[] indices = {0,0,0,0,0};
 
 	/**
-	 * 
 	 * @param numEnemies total group size minus user
 	 * @param deckToUse deck used for the game
 	 */
@@ -36,16 +37,14 @@ public class Player {
 	}
 	
 	public int evaluateHand() {
-		this.showHand();
-		
-		return 0; // for now, ultimately return metascore?
+		return hd.getMetaValue();
 	}
 	
 	 /**
 	  * Displays users current hand
 	  */
 	public void showHand() {
-		System.out.print("Your current hand: ");
+		System.out.print("Your hand: ");
 		for(int i=0; i<hand; i++){
 			System.out.print(i+1 +") [" + hd.getDisplayedCard(i) + "]  ");
 		}

@@ -27,21 +27,21 @@ public class Enemy extends Player {
 	}
 	
 	public void showOppHand() {
-		System.out.print("Opponent " + oppNumber + "'s current hand: ");
+		System.out.print("Opponent " + oppNumber + "'s hand: ");
 		for(int i=0; i<super.hand; i++){
 			System.out.print(i+1 +") [" + hdo.getDisplayedCard(i) + "]  ");
 		}
 		System.out.println("");
-		oppDiscardPhase();
 	}
 	
 	private void oppDiscardPhase() {
 		// follow AI outline 
+		System.out.println("Player " + oppNumber + " discarded nothing, cause he can't think yet!" );
 		evaluateOppPhase();
 	}
 
 	private int evaluateOppPhase() {
 		// evaluate opponent hand
-		return 0; // for now, ultimately return metascore?
+		return hdo.getMetaValue();
 	}
 }
