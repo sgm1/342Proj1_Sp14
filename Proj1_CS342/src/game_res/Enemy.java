@@ -36,12 +36,11 @@ public class Enemy extends Player {
 	
 	private void oppDiscardPhase() {
 		// follow AI outline 
-		System.out.println("Player " + oppNumber + " discarded nothing, cause he can't think yet!" );
+		System.out.println("Player " + oppNumber + " discarded nothing, as he can't think yet!" );
 		evaluateOppPhase();
 	}
 
 	private int evaluateOppPhase() {
-		// evaluate opponent hand
 		return hdo.getMetaValue();
 	}
 }

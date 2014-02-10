@@ -51,7 +51,7 @@ public class Game {
 				highScore = playerScores[i];
 			}
 		}
-		if(winner>=0 && winner<=numOpponents)
+		if(winner>=0 && winner<(numOpponents+1))
 			System.out.println("Player " + (winner+1) + " is the winner, with a...");
 		else
 			System.out.println("You win! with a...");

@@ -39,10 +39,10 @@ public class Player {
 	public int evaluateHand() {
 		return hd.getMetaValue();
 	}
-	
-	 /**
-	  * Displays users current hand
-	  */
+
+	/**
+	 * Displays users current hand
+	 */
 	public void showHand() {
 		System.out.print("Your hand: ");
 		for(int i=0; i<hand; i++){
