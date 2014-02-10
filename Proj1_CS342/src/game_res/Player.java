@@ -7,9 +7,10 @@ public class Player {
 	private PokerHand hd;
 	protected Player(Deck deckToUse){ }
 	protected int hand = 5;
+	int aceCount = 0;
 	boolean ace = false;
 	int numToReplace = 0;
-	int aceCount = 0;
+	int[] indices = {0,0,0,0,0};
 
 	/**
 	 * 
@@ -31,9 +32,13 @@ public class Player {
 		this.showHand();
 		this.discardPhase();
 		this.redrawPhase();
-		this.showHand();
-		this.evaluate();
 		return;
+	}
+	
+	public int evaluateHand() {
+		this.showHand();
+		
+		return 0; // for now, ultimately return metascore?
 	}
 	
 	 /**
@@ -49,7 +54,7 @@ public class Player {
 	
 	/**
 	 * Handles the users discarding phase
-	 * checks for ace, if yes allows user to discard 4 cards,
+	 * checks for ace; if yes allows user to discard 4 cards.
 	 * otherwise only allows discarding up to 3 cards
 	 * also handles error checking
 	 */
@@ -69,37 +74,38 @@ public class Player {
 			throw new IllegalArgumentException("Can only discard up to three " +
 					"cards without an Ace, and only up to 4 with");
 		
-	}
-	
-	private void redrawPhase() {
-		int[] indices = {0,0,0,0,0};
 		if(numToReplace!=0) {
 			System.out.print("List the indices of the cards to discard? : ");
 			for(int i=0; i<numToReplace; i++) {
 				//Java have buffer overflow??
 				int index = stdIn.nextInt()-1;
-			
-				if(ace==true && numToReplace==4 && index>(0-1) && index<(4+1)) {
+				
+				if(ace==true && numToReplace==4 && index>(0-1) && index<(5+1)) {
 					Card possibleAce = hd.get(index);
 					if(possibleAce.rank == 14) {
 						aceCount-=1;
 						if(aceCount<1) 
 							throw new IllegalArgumentException("When choosing to " 
-								+ "discard 4 cards, cannot discard last Ace");
-					}
+									+ "discard 4 cards, cannot discard last Ace");
+						}
 				}
-				
+					
 				if(index>(0-1) && index<(5+1))
 					indices[i] = index;
 				else throw new IllegalArgumentException("Can only discard cards " 
 					+ "with and index of 1 through 5");
-			    //need help implementing either replace method, tried both; h??
-				System.out.println("Discarded card at index " + (index+1));
+				//need help implementing either replace method, tried both; h??
+				System.out.println("Discarded user card at index " + (index+1));
 			}
+			
 		}
 	}
 	
-	private int evaluate() {
-		return 0; // for now, ultimately return metascore?
+	private void redrawPhase() {
+		for(int i=0; i<numToReplace; i++) {
+			hd.replace(indices[i]);
+		}
+		this.showHand();
 	}
+	
 }

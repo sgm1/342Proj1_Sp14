@@ -32,5 +32,6 @@ public class Game {
 		for(int i=0; i<numOpponents; i++) {
 			opponents[i].opponentTurn();
 		}
+		user.evaluateHand();
 	}
 }
