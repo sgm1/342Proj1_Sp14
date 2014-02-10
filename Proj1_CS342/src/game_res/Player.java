@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Player {
 	
+	Scanner stdIn = new Scanner (System.in);
 	private PokerHand hd;
 	protected Player(Deck deckToUse){ }
 
@@ -23,4 +24,16 @@ public class Player {
 		//winnerThusFar = this;
 	}
 	
+	public void showHand() {
+		System.out.print("Your current hand: ");
+		for(int i=0; i<5; i++){
+			System.out.print(hd.getDisplayedCard(i) + " ");
+		}
+		System.out.println("");
+	}
+	
+	public void discardPhase() {
+		System.out.print("How many cards to discard? : ");
+		int numOfDiscards = stdIn.nextInt();
+	}
 }

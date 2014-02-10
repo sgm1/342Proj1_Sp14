@@ -23,11 +23,11 @@ public class Game {
 		 * deals them their hands, and *evaluates their moves
 		 */
 		Player user = new Player(numOpponents,gameDeck);
-		
 		Enemy[] opponents = new Enemy[numOpponents];
 		for(int i=0; i<numOpponents; i++) {
 			opponents[i] = new Enemy(gameDeck,i);
 		}
-		
+		user.showHand();
+		user.discardPhase();
 	}
 }
