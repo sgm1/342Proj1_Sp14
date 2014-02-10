@@ -352,7 +352,6 @@ public class PokerHand extends CardPile {
 			}
 			if(rankCount[i] == 4){
 				typeOfHand = 4;
-				typeOfHand = 2;
 				val += rankCount[i] * 100000000;
 			}
 			if(rankCount[i] == 5){//multiple decks?
