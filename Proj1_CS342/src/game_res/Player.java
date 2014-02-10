@@ -6,7 +6,10 @@ public class Player {
 	Scanner stdIn = new Scanner (System.in);
 	private PokerHand hd;
 	protected Player(Deck deckToUse){ }
-	private int hand = 5;
+	protected int hand = 5;
+	boolean ace = false;
+	int numToReplace = 0;
+	int aceCount = 0;
 
 	/**
 	 * 
@@ -23,6 +26,16 @@ public class Player {
 		System.out.println("You drew 5 cards.");
 		//winnerThusFar = this;
 	}
+	
+	public void decideHand() {
+		this.showHand();
+		this.discardPhase();
+		this.redrawPhase();
+		this.showHand();
+		this.evaluate();
+		return;
+	}
+	
 	 /**
 	  * Displays users current hand
 	  */
@@ -40,9 +53,7 @@ public class Player {
 	 * otherwise only allows discarding up to 3 cards
 	 * also handles error checking
 	 */
-	public void discardPhase() {
-		boolean ace = false;
-		int aceCount = 0;
+	private void discardPhase() {
 		for(int i=0; i<hand; i++) {
 			Card possibleAce = hd.get(i);
 			if(possibleAce.rank == 14) {
@@ -53,11 +64,14 @@ public class Player {
 		}
 		
 		System.out.print("How many cards do you want to discard? : ");
-		int numToReplace = stdIn.nextInt();
+		numToReplace = stdIn.nextInt();
 		if((numToReplace==4 && ace==false) || (numToReplace>4 || numToReplace<0))
 			throw new IllegalArgumentException("Can only discard up to three " +
 					"cards without an Ace, and only up to 4 with");
 		
+	}
+	
+	private void redrawPhase() {
 		int[] indices = {0,0,0,0,0};
 		if(numToReplace!=0) {
 			System.out.print("List the indices of the cards to discard? : ");
@@ -79,10 +93,13 @@ public class Player {
 					indices[i] = index;
 				else throw new IllegalArgumentException("Can only discard cards " 
 					+ "with and index of 1 through 5");
-			    
+			    //need help implementing either replace method, tried both; h??
 				System.out.println("Discarded card at index " + (index+1));
 			}
 		}
-        // need to actually apply replace function.. couldnt figure out how to
+	}
+	
+	private int evaluate() {
+		return 0; // for now, ultimately return metascore?
 	}
 }

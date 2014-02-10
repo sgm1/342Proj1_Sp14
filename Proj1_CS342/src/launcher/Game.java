@@ -27,7 +27,10 @@ public class Game {
 		for(int i=0; i<numOpponents; i++) {
 			opponents[i] = new Enemy(gameDeck,i);
 		}
-		user.showHand();
-		user.discardPhase();
+		
+		user.decideHand();
+		for(int i=0; i<numOpponents; i++) {
+			opponents[i].opponentTurn();
+		}
 	}
 }
