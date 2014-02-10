@@ -150,7 +150,7 @@ public class PokerHand extends CardPile {
 	
 	/**
 	 * Prints the major 2/3/4 of a kind first,
-	 * then the rest of teh cards
+	 * then the rest of the cards
 	 */
 	@Override
 	public String toString(){
