@@ -29,7 +29,7 @@ public class Player {
 	}
     
 	/**
-	 * Calling method of Player class; initiates turn
+	 * Calling method of Player class; initiates users turn
 	 */
 	public void decideHand() {
 		this.showHand();
@@ -103,7 +103,7 @@ public class Player {
 	}
 
 	/**
-	 * Replaces cards that were previously discarded with new ones
+	 * Replaces cards to be discarded with new ones
 	 */
 	private void redrawPhase() {
 		try { hd.replace(indices); } 
