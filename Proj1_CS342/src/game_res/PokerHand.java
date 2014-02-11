@@ -118,6 +118,7 @@ public class PokerHand extends CardPile {
 	 * @return
 	 */
 	public Card getDisplayedCard(int i){
+		setPrintOrder();//sets printOrder
 		return get(printOrder[i]);
 	}
 	
@@ -157,6 +158,23 @@ public class PokerHand extends CardPile {
 		if (typeOfHand == 0)
 			return super.toString();
 		String temp = "";
+		for (int i = 0; i < 5; i++){
+			temp += getDisplayedCard(i) + ", ";
+		}
+		//System.out.println("Type: " + typeOfHand + " Actual :" + super.toString());
+		return temp;
+	}
+	
+	@Override
+	protected void sortBySuit(boolean b){
+		super.sortBySuit(b);
+		printOrder = new int[5];
+		for (int i = 0; i < 5; ++i) {
+			printOrder[i] = i;
+		}
+	}
+	
+	private void setPrintOrder(){
 		if (typeOfHand == 1){
 			for (int i = 0, j = 0, k = 2; i < 5; i++){
 				if (rankCount[get(i).rank] == 2){
@@ -195,20 +213,6 @@ public class PokerHand extends CardPile {
 					printOrder[4] = i;
 				}
 			}
-		}
-		for (int i = 0; i < 5; i++){
-			temp += getDisplayedCard(i) + ", ";
-		}
-		//System.out.println("Type: " + typeOfHand + " Actual :" + super.toString());
-		return temp;
-	}
-	
-	@Override
-	protected void sortBySuit(boolean b){
-		super.sortBySuit(b);
-		printOrder = new int[5];
-		for (int i = 0; i < 5; ++i) {
-			printOrder[i] = i;
 		}
 	}
 	
