@@ -43,7 +43,7 @@ public class Game {
 		 * Will eventually print the hand and type
 		 */
 		user.showHand();
-		winnerThusFar = 0;
+		winnerThusFar = 0; // initialized to player
 		
 		for(int i=0; i<numOpponents; i++) {
 			opponents[i].showOppHand();
@@ -57,8 +57,6 @@ public class Game {
 		else {
 			System.out.println("Opponent " + winnerThusFar + " is the winner, with a...");
 			opponents[winnerThusFar-1].showOppHand(); }
-		
-		int temp = user.compareTo(opponents[0]);
 		
 		System.out.println("Thank you for paying!");
 		stdIn.close();
