@@ -61,7 +61,7 @@ public class Player {
 		/*
 		for(int i=0; i<hand; i++) {
 			Card possibleAce = hd.get(i);
-			if(possibleAce.rank == 14) {
+			if(possibleAce.rank == 14) { 
 				System.out.println("You drew an Ace! You can choose to keep "
 						+ "the Ace and discard your remaining 4 cards.");
 			}
