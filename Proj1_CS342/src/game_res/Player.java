@@ -5,15 +5,11 @@ import java.util.Scanner;
 public class Player {
 	Scanner stdIn = new Scanner(System.in);
 	private PokerHand hd;
-
-	protected Player(Deck deckToUse) {
-	}
+	protected Player(Deck deckToUse) {}
 
 	protected int hand = 5;
 	int aceCount = 0;
 	boolean ace = false;
-	boolean flush = false;
-	boolean straight = false;
 	int numToReplace = 0;
 	int[] indices = new int[0];
 
@@ -62,49 +58,45 @@ public class Player {
 	 * handles error checking
 	 */
 	private void discardPhase() {
-		if (hd.get(0).rank == 14) {
-			System.out.println("You drew an Ace! You can choose to keep "
-					+ "the Ace and discard your remaining 4 cards.");
+		for(int i=0; i<hand; i++) {
+			Card possibleAce = hd.get(i);
+			if(possibleAce.rank == 14) {
+				System.out.println("You drew an Ace! You can choose to keep "
+						+ "the Ace and discard your remaining 4 cards.");
 			ace = true;
-		}
-		for (int i = 0; i < hand; i++) {
-			aceCount += 1;
+			aceCount+=1;
+			}
 		}
 
 		System.out.print("How many cards do you want to discard? : ");
 		numToReplace = stdIn.nextInt();
-		if (numToReplace > 4 || numToReplace < 1)
-			throw new IllegalArgumentException("Can only discard up 0 to 4 cards");
-		if (numToReplace == 4 && hd.get(0).rank != 14)
+		if(numToReplace==4 && ace==false)
 			throw new IllegalArgumentException("Can only discard up to three "
 					+ "cards without an Ace, and only up to 4 with");
-		if (numToReplace > 0) {
+		if(numToReplace>4 || numToReplace<0)
+			throw new IllegalArgumentException("Can only discard 0 to 4 cards");
+		if(numToReplace > 0) {
 			indices = new int[numToReplace];
 			System.out.print("List the indices of the cards to discard? : ");
-			for (int i = 0; i < numToReplace; i++) {
+			for(int i=0; i<numToReplace; i++) {
 				// Java have buffer overflow??
-				int index = stdIn.nextInt() - 1;
+				int index = stdIn.nextInt()-1;
 
-				if (ace == true && numToReplace == 4 && index > (0 - 1)
-						&& index < (5 + 1)) {
+				if(ace==true && numToReplace==4 && index>(0-1) && index<(5+1)) {
 					Card possibleAce = hd.get(index);
 					if (possibleAce.rank == 14) {
-						aceCount -= 1;
-						if (aceCount < 1)
-							throw new IllegalArgumentException(
-									"When choosing to "
-											+ "discard 4 cards, cannot discard last Ace");
+						aceCount-=1;
+						if(aceCount<1)
+							throw new IllegalArgumentException("When choosing to "
+									+ "discard 4 cards, cannot discard last Ace");
 					}
 				}
 
-				if (index > (0 - 1) && index < (5 + 1))
+				if(index>(0-1) && index<(5+1))
 					indices[i] = index;
-				else
-					throw new IllegalArgumentException(
-							"Can only discard cards "
-									+ "with and index of 1 through 5");
-				System.out
-						.println("Replaced user card at index " + (index + 1));
+				else throw new IllegalArgumentException( "Can only discard cards "
+					+ "with and index of 1 through 5");
+				System.out.println("Replaced user card at index " + (index+1));
 			}
 		}
 	}

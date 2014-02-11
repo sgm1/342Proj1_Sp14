@@ -101,8 +101,8 @@ public class PokerHand extends CardPile {
 			for (int i = 0; i < 4; ++i) {
 				indexToCheck -= otherIndecies[i];
 			}
-			if (get(indexToCheck).rank == 14)//TODO throw error, or print out error?
-				throw new IllegalArgumentException("Remaining card must be an ace, when dicarding 4");
+			//if (get(indexToCheck).rank == 14)//TODO throw error, or print out error?
+			//	throw new IllegalArgumentException("Remaining card must be an ace, when dicarding 4");
 		}
 		for (int i = 0; i < otherIndecies.length; i++){
 			replaceHelper (otherIndecies[i]);
