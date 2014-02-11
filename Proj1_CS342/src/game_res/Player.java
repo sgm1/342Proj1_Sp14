@@ -35,6 +35,7 @@ public class Player {
 		this.showHand();
 		this.discardPhase();
 		this.redrawPhase();
+		return;
 	}
     
 	/**

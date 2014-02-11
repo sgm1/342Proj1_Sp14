@@ -22,6 +22,7 @@ public class Enemy extends Player {
 	public void opponentTurn() {
 		this.showOppHand();
 		this.oppDiscardPhase();
+		return;
 	}
 	
 	/**
