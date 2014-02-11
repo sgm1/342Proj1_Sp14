@@ -167,7 +167,7 @@ public class Enemy extends Player {
 	}
 
 	/**
-	 * Handles comparing one opponents hand to another
+	 * Handles comparing one opponents hand to anothers
 	 * 
 	 * @param Enemy
 	 *            other an opponents hand being compared to current opponent
