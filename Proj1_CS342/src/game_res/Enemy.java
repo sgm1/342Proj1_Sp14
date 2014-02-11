@@ -3,9 +3,7 @@ package game_res;
 public class Enemy extends Player {
 	public int oppNumber;
 	public PokerHand hdo;
-	int numToReplace = 0;
-	int matches = 0;
-	int[] toDiscard = new int[0]; //indices
+	int[] toDiscard = new int[0];
 	
 	/**
 	 * Basically an automated extension of
@@ -22,7 +20,7 @@ public class Enemy extends Player {
 	 * Calling method of Enemy class; initiates opponents turn
 	 */
 	public void opponentTurn() {
-		//this.showOppHand();
+		this.showOppHand();
 		this.oppDiscardPhase();
 	}
 	
@@ -42,25 +40,71 @@ public class Enemy extends Player {
 	 * AI implication should begin here...
 	 */
 	private void oppDiscardPhase() {
-		// follow AI outline 
-		Card tester;
+		// follow AI outline
+		int[] matchesPerCard = new int[5];
 		for(int i=0; i<5; i++) {
-		    tester = hdo.get(i);
-		    matches = 0;
-			numToReplace = 0;
-			int[] toDiscard = new int[5];
+		    Card tester = hdo.get(i);
+		    int matches = 0;
 			for(int j=0; j<5; j++) {
 				if(tester.rank == hdo.get(j).rank) {
 					matches++; }
-				else {
-				   toDiscard[numToReplace] = j;
-				   numToReplace++; }
-				if(matches>1) {
-					oppRedrawPhase();
-					break; }	
 		    }
+			matchesPerCard[i] = matches;
 		}
-		System.out.println("Opponent " + oppNumber + " discarded " + matches + " cards.");
+		/*** Shows for each index how many matches of card in the hand ***
+		System.out.println("Number matches per index: " + matchesPerCard[0]
+				+ matchesPerCard[1]  + matchesPerCard[2]  + matchesPerCard[3]
+				+ matchesPerCard[4]);
+		*/
+		/* look at comments below*/
+		for(int i=0; i<5; i++) {					
+			if(matchesPerCard[i] == 4) {			
+				int[] toDiscard = new int[1];		
+				for(int k=0; k<5; k++) {			
+					if(matchesPerCard[k] != 4) {	
+						toDiscard[0] = matchesPerCard[k];	 
+						oppRedrawPhase();	
+						return;				
+					}
+				}
+			}
+		}
+		for(int i=0; i<5; i++) {				//scan through the index list
+			if(matchesPerCard[i] == 3) {		//see if any index has value of 4
+				int[] toDiscard = new int[2];	//create array to hold value(s)
+				int counter = 0;				//create counter for indices found
+				for(int k=0; k<5; k++) {		//scan through again, to look for !match
+					if(matchesPerCard[k] != 3) {	//this time accept on complement
+						toDiscard[counter] = matchesPerCard[k]; //throw those indices in
+						counter++;					//increment counter when index found
+						if(counter == 2) {		//accept when discard = hand - matches
+							oppRedrawPhase();	//call the replace with gathered indices
+							return; }			//make sure to leave method after the swap
+					}	
+				}
+			}
+		}
+		/* look at previous comments */
+		for(int i=0; i<5; i++) {
+			if(matchesPerCard[i] == 2) {
+				int[] toDiscard = new int[3];
+				int counter = 0;
+				for(int k=0; k<5; k++) {
+					if(matchesPerCard[k] != 2) {
+						toDiscard[counter] = matchesPerCard[k];
+						counter++;
+						if(counter == 3) {
+						   oppRedrawPhase();
+						   return; }
+					}
+				}
+			}
+		}
+		
+		/* else top two valued cards */
+		for(int i=0; i<5; i++) {
+			
+		}
 	}
     
 	/**
