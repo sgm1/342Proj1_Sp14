@@ -20,8 +20,12 @@ public class Game {
 		 */
 		Player user = new Player(numOpponents,gameDeck);
 		Enemy[] opponents = new Enemy[numOpponents];
+		
+		Player[] all = new Player[numOpponents + 1];
+		all[0] = user;
 		for(int i=0; i<numOpponents; i++) {
 			opponents[i] = new Enemy(gameDeck,i);
+			all[i + 1] = opponents[i];
 		}
 		
 		/**
@@ -41,19 +45,31 @@ public class Game {
 		user.showHand();
 		winnerThusFar = 0; // initialized to player
 		boolean userWinning = true;
-		for(int i=0; i<numOpponents; i++) {
+		Player curWinner;
+		winnerThusFar = 0;
+		curWinner = all[0];
+		for(int i=1; i<numOpponents; i++) {
+			all[i].showHand();
+			if (curWinner.compareTo(all[i]) > 1)
+				;
+			else{
+				winnerThusFar = i;
+				curWinner = all[i];
+			}
+			/*
 			opponents[i].showOppHand();
 			if(userWinning) {
-				/* user does not have better hand */
+				// user does not have better hand 
 				if(user.compareTo(opponents[i]) < 0) { 
 					winnerThusFar = opponents[i].oppNumber; 
 					userWinning = false; }
 			}
 			else {
-				/* following compareTo is slightly different than previous */
+				// following compareTo is slightly different than previous
 				if(opponents[winnerThusFar-1].compareTo(opponents[i]) < 0) {
 					winnerThusFar = opponents[i].oppNumber; }
 			}	
+			*/
 		}
 		if(winnerThusFar==0) {
 			System.out.println("You win! with a...");
@@ -61,7 +77,9 @@ public class Game {
 		else {
 			/* sometimes last player loses to previous for no reason */
 			System.out.println("Opponent " + winnerThusFar + " is the winner, with a...");
-			opponents[winnerThusFar-1].showOppHand(); }
+			//opponents[winnerThusFar-1].showOppHand();
+			all[winnerThusFar].showHand();
+		}
 		
 		System.out.println("Thank you for paying!");
 		stdIn.close();

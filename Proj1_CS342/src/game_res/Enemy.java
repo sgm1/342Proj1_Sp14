@@ -2,7 +2,6 @@ package game_res;
 
 public class Enemy extends Player {
 	public int oppNumber;
-	public PokerHand hdo;
 	int[] toDiscard = new int[0];
 	
 	/**
@@ -11,7 +10,7 @@ public class Enemy extends Player {
 	 */
 	public Enemy(Deck deckToUse, int i) {
 		super(deckToUse);
-		hdo = new PokerHand(deckToUse);
+		hd = new PokerHand(deckToUse);
 		oppNumber = i+1; 
 		System.out.println("Opponent " + oppNumber + " drew 5 cards.");
 	}
@@ -29,10 +28,10 @@ public class Enemy extends Player {
 	 * Variant of Player class method, simply calls method to display the
 	 * current opponents hand
 	 */
-	public void showOppHand() {
+	public void showHand() {
 		System.out.print("Opp" + oppNumber + " hand: ");
 		for(int i=0; i<super.hand; i++){
-			System.out.print(i+1 +") [" + hdo.getDisplayedCard(i) + "]  ");
+			System.out.print(i+1 +") [" + hd.getDisplayedCard(i) + "]  ");
 		}
 		System.out.println("");
 	}
@@ -42,16 +41,18 @@ public class Enemy extends Player {
 	 */
 	private void oppDiscardPhase() {
 		// follow AI outline
+		/*
 		int[] matchesPerCard = new int[5];
 		for(int i=0; i<5; i++) {
-		    Card tester = hdo.get(i);
+		    Card tester = hd.get(i);
 		    int matches = 0;
 			for(int j=0; j<5; j++) {
-				if(tester.rank == hdo.get(j).rank) {
+				if(tester.rank == hd.get(j).rank) {
 					matches++; }
 		    }
 			matchesPerCard[i] = matches;
 		}
+		*/
 		/*** Shows for each index how many matches of card in the hand ***
 		System.out.println("Number matches per index: " + matchesPerCard[0]
 				+ matchesPerCard[1]  + matchesPerCard[2]  + matchesPerCard[3]
@@ -62,6 +63,7 @@ public class Enemy extends Player {
 		
 		/* look at comments below */
 		/* four of a kind */
+		/*
 		for(int i=0; i<5; i++) {					
 			if(matchesPerCard[i] == 4) {			
 				int[] toDiscard = new int[1];		
@@ -74,7 +76,9 @@ public class Enemy extends Player {
 				}
 			}
 		}
+		*/
 		/* three of a kind */
+		/*
 		for(int i=0; i<5; i++) {				//scan through the index list
 			if(matchesPerCard[i] == 3) {		//see if any index has value of 4
 				int[] toDiscard = new int[2];	//create array to hold value(s)
@@ -90,8 +94,10 @@ public class Enemy extends Player {
 				}
 			}
 		}
+		*/
 		/* look at previous comments */
 		/* two of a kind */
+		/*
 		for(int i=0; i<5; i++) {
 			if(matchesPerCard[i] == 2) {
 				int[] toDiscard = new int[3];
@@ -107,6 +113,7 @@ public class Enemy extends Player {
 				}
 			}
 		}
+		*/
 		
 		/* check four of same suit, discard remainder */
 		
@@ -115,8 +122,47 @@ public class Enemy extends Player {
 		/* if have Ace, discard all others */
 		
 		/* else top two valued cards */
+		/*
 		for(int i=0; i<5; i++) {
 			
+		}
+		*/
+		int val = hd.getMetaValue();
+		int temp[];
+		if (val == 0x7FFFFFFF){
+			
+		}else if (val / 100000000 > 0){
+			hd.replace(4);
+			System.out.println("DEBUG:");
+			showHand();
+			System.out.println("DEBUG:");
+		}else if (val / 10000 > 0){
+			if ((val / 1000000) > 0 && ((val % 10000) / 100 > 0)){// a full house
+				//replace nothing
+			}else if (val / 1000000 > 0){// only a three of a kind
+				temp = new int[2];
+				temp[0] = 3;
+				temp[1] = 4;
+				hd.replace(temp);
+				System.out.println("DEBUG:");
+				showHand();
+				System.out.println("DEBUG:");
+			} else if (val / 10000 > 0){
+				hd.replace(4);
+				System.out.println("DEBUG:");
+				showHand();
+				System.out.println("DEBUG:");
+			}
+			
+		}else{// two of a kind or 2 high cards
+			temp = new int[3];
+			temp[0] = 2;
+			temp[1] = 3;
+			temp[2] = 4;
+			hd.replace(temp);
+			System.out.println("DEBUG:");
+			showHand();
+			System.out.println("DEBUG:");
 		}
 	}
     
@@ -124,7 +170,7 @@ public class Enemy extends Player {
 	 * Replaces cards to be discarded with new ones
 	 */
 	private void oppRedrawPhase() {
-		try { hdo.replace(toDiscard); } 
+		try { hd.replace(toDiscard); } 
 		catch(IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 			oppDiscardPhase();
@@ -137,8 +183,8 @@ public class Enemy extends Player {
 	 * 		an opponents hand being compared to current opponent
 	 * @return 
 	 * 		returns either negative, zero, or positive number
-	 */
-	public int compareTo(Enemy other) {
-		return this.hdo.compareTo(other.hdo);
+	public int compareTo( other) {
+		return this.hd.compareTo(other.hd);
 	}
+	 */
 }

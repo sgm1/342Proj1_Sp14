@@ -121,7 +121,7 @@ public class Player {
 	 * @return 
 	 * 		returns either negative, zero, or positive number
 	 */
-	public int compareTo(Enemy other) {
-		return this.hd.compareTo(other.hdo);
+	public int compareTo(Player all) {
+		return this.hd.compareTo(all.hd);
 	}
 }
