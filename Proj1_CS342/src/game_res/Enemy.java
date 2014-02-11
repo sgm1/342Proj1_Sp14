@@ -2,7 +2,6 @@ package game_res;
 
 public class Enemy extends Player {
 	int oppNumber;
-	private PokerHand hdo;
 	boolean ace = false;
 	int numToReplace = 0;
 	int aceCount = 0;
@@ -14,7 +13,7 @@ public class Enemy extends Player {
 	
 	public Enemy(Deck deckToUse, int i) {
 		super(deckToUse);
-		hdo = new PokerHand(deckToUse);
+		hd = new PokerHand(deckToUse);
 		oppNumber = i+1;
 		System.out.println("Opponent " + oppNumber + " drew 5 cards.");
 	}
@@ -28,7 +27,7 @@ public class Enemy extends Player {
 	public void showOppHand() {
 		System.out.print("Opp" + oppNumber + " hand: ");
 		for(int i=0; i<super.hand; i++){
-			System.out.print(i+1 +") [" + hdo.getDisplayedCard(i) + "]  ");
+			System.out.print(i+1 +") [" + hd.getDisplayedCard(i) + "]  ");
 		}
 		System.out.println("");
 	}
@@ -40,6 +39,6 @@ public class Enemy extends Player {
 	}
 
 	private int evaluateOppPhase() {
-		return hdo.getMetaValue();
+		return hd.getMetaValue();
 	}
 }

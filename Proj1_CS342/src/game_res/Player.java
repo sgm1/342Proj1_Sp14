@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Player {
 	Scanner stdIn = new Scanner(System.in);
-	private PokerHand hd;
+	protected PokerHand hd;
 	protected Player(Deck deckToUse) {}
 
 	protected int hand = 5;
@@ -50,6 +50,10 @@ public class Player {
 			System.out.print(i + 1 + ") [" + hd.getDisplayedCard(i) + "]  ");
 		}
 		System.out.println("");
+	}
+	
+	public int compareTo(Player other){
+		return this.hd.compareTo(other.hd);
 	}
 
 	/**
