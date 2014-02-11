@@ -1,8 +1,8 @@
 package game_res;
 
 public class Enemy extends Player {
-	int oppNumber;
-	private PokerHand hdo;
+	public int oppNumber;
+	public PokerHand hdo;
 	boolean ace = false;
 	int numToReplace = 0;
 	int aceCount = 0;
@@ -22,7 +22,7 @@ public class Enemy extends Player {
 	public int opponentTurn() {
 		oppDiscardPhase();
 		//showOppHand();
-		return evaluateOppPhase();
+		return 0;
 	}
 	
 	public void showOppHand() {

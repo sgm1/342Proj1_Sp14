@@ -7,7 +7,7 @@ public class Game {
 
 	public static void main(String[] args) {
 		Scanner stdIn = new Scanner (System.in);
-		//final Player winnerThusFar;
+		int winnerThusFar;
 		Deck gameDeck = new Deck();
 		
 		//System.out.println(gameDeck.getNumCardsLeft());
@@ -34,32 +34,31 @@ public class Game {
 		 */
 		user.decideHand();
 		for(int i=0; i<numOpponents; i++) {
-			playerScores[i] = opponents[i].opponentTurn();
+			opponents[i].opponentTurn();
 		}
-		playerScores[numOpponents] = user.evaluateHand();
 		
 		/**
-		 * Compares all metascores and ultimately decides who has the 
+		 * Compares all hands and decides who has the 
 		 * best hand. Assumes user is winner, checks if valid..
 		 * Will eventually print the hand and type
 		 */
 		user.showHand();
-		int winner = 100; //cannot have this many players, so safe value to represent user
-		int highScore = playerScores[numOpponents];
+		winnerThusFar = 0;
 		
-		for(int i=0; i<numOpponents; i++){
+		for(int i=0; i<numOpponents; i++) {
 			opponents[i].showOppHand();
-			if(playerScores[i]>highScore) {
-				winner = (i+1);
-				highScore = playerScores[i];
+			if(user.compareTo(opponents[i]) < 0) {
+				winnerThusFar = opponents[i].oppNumber;
 			}
 		}
-		if(winner==100) {
+		if(winnerThusFar==0) {
 			System.out.println("You win! with a...");
 			user.showHand(); }
 		else {
-			System.out.println("Opponent " + winner + " is the winner, with a...");
-			opponents[winner-1].showOppHand(); }
+			System.out.println("Opponent " + winnerThusFar + " is the winner, with a...");
+			opponents[winnerThusFar-1].showOppHand(); }
+		
+		int temp = user.compareTo(opponents[0]);
 		
 		System.out.println("Thank you for paying!");
 		stdIn.close();

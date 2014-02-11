@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Player {
 	Scanner stdIn = new Scanner(System.in);
-	private PokerHand hd;
+	protected PokerHand hd;
 	protected Player(Deck deckToUse) {}
 
 	protected int hand = 5;
@@ -75,7 +75,7 @@ public class Player {
 
 		System.out.print("How many cards do you want to discard? : ");
 		numToReplace = stdIn.nextInt();
-		if (numToReplace > 4 || numToReplace < 1)
+		if (numToReplace > 4 || numToReplace < 0)
 			throw new IllegalArgumentException("Can only discard up 0 to 4 cards");
 			//should retry here
 		/*
@@ -108,5 +108,9 @@ public class Player {
 			System.out.println(e.getMessage());
 			discardPhase();
 		}
+	}
+	
+	public int compareTo(Enemy other) {
+		return this.hd.compareTo(other.hdo);
 	}
 }
