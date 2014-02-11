@@ -56,7 +56,11 @@ public class Enemy extends Player {
 				+ matchesPerCard[1]  + matchesPerCard[2]  + matchesPerCard[3]
 				+ matchesPerCard[4]);
 		*/
-		/* look at comments below*/
+	    /* can probably have a method for segments below...but i'm tired :p */
+		/* code doesn't work for some reason...blue comments above show it should */
+		
+		/* look at comments below */
+		/* four of a kind */
 		for(int i=0; i<5; i++) {					
 			if(matchesPerCard[i] == 4) {			
 				int[] toDiscard = new int[1];		
@@ -69,6 +73,7 @@ public class Enemy extends Player {
 				}
 			}
 		}
+		/* three of a kind */
 		for(int i=0; i<5; i++) {				//scan through the index list
 			if(matchesPerCard[i] == 3) {		//see if any index has value of 4
 				int[] toDiscard = new int[2];	//create array to hold value(s)
@@ -85,6 +90,7 @@ public class Enemy extends Player {
 			}
 		}
 		/* look at previous comments */
+		/* two of a kind */
 		for(int i=0; i<5; i++) {
 			if(matchesPerCard[i] == 2) {
 				int[] toDiscard = new int[3];
@@ -100,6 +106,12 @@ public class Enemy extends Player {
 				}
 			}
 		}
+		
+		/* check four of same suit, discard remainder */
+		
+		/* check four in sequence, discard remainder */
+		
+		/* if have Ace, discard all others */
 		
 		/* else top two valued cards */
 		for(int i=0; i<5; i++) {
