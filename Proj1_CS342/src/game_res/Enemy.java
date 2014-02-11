@@ -20,7 +20,7 @@ public class Enemy extends Player {
 	 * Calling method of Enemy class; initiates opponents turn
 	 */
 	public void opponentTurn() {
-		this.showOppHand();
+		//this.showOppHand();
 		this.oppDiscardPhase();
 		return;
 	}

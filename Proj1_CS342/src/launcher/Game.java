@@ -59,6 +59,7 @@ public class Game {
 			System.out.println("You win! with a...");
 			user.showHand(); }
 		else {
+			/* sometimes last player loses to previous for no reason */
 			System.out.println("Opponent " + winnerThusFar + " is the winner, with a...");
 			opponents[winnerThusFar-1].showOppHand(); }
 		
