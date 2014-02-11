@@ -102,10 +102,8 @@ public class Player {
 					indices[i] = index;
 				else
 					throw new IllegalArgumentException(
-							"Can only discard cards "
-									+ "with and index of 1 through 5");
-				System.out
-						.println("Replaced user card at index " + (index + 1));
+							"Can only discard cards with and index of 1 through 5");
+				System.out.println("Replacing user card at index " + (index + 1));
 			}
 		}
 	}
