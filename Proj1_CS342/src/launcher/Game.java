@@ -11,7 +11,7 @@ public class Game {
 		Deck gameDeck = new Deck();
 		
 		//System.out.println(gameDeck.getNumCardsLeft());
-		//t.replace(3);
+		//t.replace(3); merged
 		
 		System.out.print("How many players? (max 10) : ");
 		int numOpponents = stdIn.nextInt()-1;
