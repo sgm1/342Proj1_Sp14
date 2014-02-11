@@ -19,7 +19,7 @@ public class Enemy extends Player {
 	 * Calling method of Enemy class; initiates opponents turn
 	 */
 	public void opponentTurn() {
-		//this.showOppHand();
+		this.showHand();
 		this.oppDiscardPhase();
 		return;
 	}
@@ -56,8 +56,8 @@ public class Enemy extends Player {
 		/*** Shows for each index how many matches of card in the hand ***
 		System.out.println("Number matches per index: " + matchesPerCard[0]
 				+ matchesPerCard[1]  + matchesPerCard[2]  + matchesPerCard[3]
-				+ matchesPerCard[4]);
-		*/
+				+ matchesPerCard[4] + " for Player " + this.oppNumber); 
+		/********************************************************************/
 	    /* can probably have a method for segments below...but i'm tired :p */
 		/* code doesn't work for some reason...blue comments above show it should */
 		
@@ -69,7 +69,7 @@ public class Enemy extends Player {
 				int[] toDiscard = new int[1];		
 				for(int k=0; k<5; k++) {			
 					if(matchesPerCard[k] != 4) {	
-						toDiscard[0] = matchesPerCard[k];	 
+						toDiscard[0] = k;	 
 						oppRedrawPhase();	
 						return;				
 					}
@@ -80,12 +80,12 @@ public class Enemy extends Player {
 		/* three of a kind */
 		/*
 		for(int i=0; i<5; i++) {				//scan through the index list
-			if(matchesPerCard[i] == 3) {		//see if any index has value of 4
+			if(matchesPerCard[i] == 3) {		//see if any index has value of 3
 				int[] toDiscard = new int[2];	//create array to hold value(s)
 				int counter = 0;				//create counter for indices found
 				for(int k=0; k<5; k++) {		//scan through again, to look for !match
 					if(matchesPerCard[k] != 3) {	//this time accept on complement
-						toDiscard[counter] = matchesPerCard[k]; //throw those indices in
+						toDiscard[counter] = k; //throw those indices in
 						counter++;					//increment counter when index found
 						if(counter == 2) {		//accept when discard = hand - matches
 							oppRedrawPhase();	//call the replace with gathered indices
@@ -104,11 +104,13 @@ public class Enemy extends Player {
 				int counter = 0;
 				for(int k=0; k<5; k++) {
 					if(matchesPerCard[k] != 2) {
-						toDiscard[counter] = matchesPerCard[k];
+						System.out.println("Not match: " + k + " Player " + oppNumber);
+						toDiscard[counter] = k;
 						counter++;
 						if(counter == 3) {
 						   oppRedrawPhase();
 						   return; }
+						//System.out.println("Index that is not part of pair: " + matchesPerCard[k]);
 					}
 				}
 			}
@@ -144,14 +146,14 @@ public class Enemy extends Player {
 				temp[0] = 3;
 				temp[1] = 4;
 				hd.replace(temp);
-				System.out.println("DEBUG:");
+				//System.out.println("DEBUG:");
 				showHand();
-				System.out.println("DEBUG:");
+				//System.out.println("DEBUG:");
 			} else if (val / 10000 > 0){
 				hd.replace(4);
-				System.out.println("DEBUG:");
+				//System.out.println("DEBUG:");
 				showHand();
-				System.out.println("DEBUG:");
+				//System.out.println("DEBUG:");
 			}
 			
 		}else{// two of a kind or 2 high cards

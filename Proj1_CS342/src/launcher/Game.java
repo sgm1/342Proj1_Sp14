@@ -65,11 +65,15 @@ public class Game {
 					userWinning = false; }
 			}
 			else {
-				// following compareTo is slightly different than previous
-				if(opponents[winnerThusFar-1].compareTo(opponents[i]) < 0) {
-					winnerThusFar = opponents[i].oppNumber; }
-			}	
 			*/
+				/* System.out.println("opponent["+(winnerThusFar)+"] compareTo opponent["+(i+1)+"] = " + 
+						user.compareTo(opponents[i])); */
+				/* following compareTo is slightly different than previous */
+			/*
+				if(opponents[winnerThusFar-1].compareTo(opponents[i]) < 0) {
+					winnerThusFar = opponents[i].oppNumber;
+				}
+				*/
 		}
 		if(winnerThusFar==0) {
 			System.out.println("You win! with a...");
