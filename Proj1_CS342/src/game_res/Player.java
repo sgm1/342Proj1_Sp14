@@ -67,11 +67,6 @@ public class Player {
 					+ "the Ace and discard your remaining 4 cards.");
 			ace = true;
 		}
-		aceCount = 0;
-		for (int i = 0; i < hand; i++) {
-			if (hd.get(i).rank == 14)
-				aceCount += 1;
-		}
 
 		System.out.print("How many cards do you want to discard? : ");
 		numToReplace = stdIn.nextInt();
@@ -86,18 +81,6 @@ public class Player {
 			for (int i = 0; i < numToReplace; i++) {
 				// Java have buffer overflow??
 				int index = stdIn.nextInt() - 1;
-
-				if (ace == true && numToReplace == 4 && index > -1 && index < 5) {
-					Card possibleAce = hd.getDisplayedCard(index);
-					if (possibleAce.rank == 14) {
-						aceCount -= 1;
-						if (aceCount < 1)
-							throw new IllegalArgumentException(
-									"When choosing to "
-											+ "discard 4 cards, cannot discard last Ace");
-					}
-				}
-
 				if (index > (0 - 1) && index < (5 + 1))
 					indices[i] = index;
 				else
@@ -111,8 +94,8 @@ public class Player {
 	private void redrawPhase() {
 		try{
 			hd.replace(indices);
-		} catch (Exception e){
-			System.out.println("Invalid indecies");
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage());
 			discardPhase();
 		}
 	}
