@@ -339,19 +339,19 @@ public class PokerHand extends CardPile {
 			}
 			if(!foundTwoOfAKind && rankCount[i] == 2){
 				typeOfHand = 1;
-				val += rankCount[i] * 100;
+				val += i * 100;
 			}
 			if(foundTwoOfAKind && rankCount[i] == 2){
 				typeOfHand = 2;
-				val += rankCount[i] * 10000;
+				val += i * 10000;
 			}
 			if(rankCount[i] == 3){
 				typeOfHand = 3;// should take care of fullhouse too
-				val += rankCount[i] * 1000000;
+				val += i * 1000000;
 			}
 			if(rankCount[i] == 4){
 				typeOfHand = 4;
-				val += rankCount[i] * 100000000;
+				val += i * 100000000;
 			}
 			if(rankCount[i] == 5){//multiple decks?
 				typeOfHand = 0;
