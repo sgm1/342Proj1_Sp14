@@ -70,22 +70,26 @@ public class Player {
 
 		System.out.print("How many cards do you want to discard? : ");
 		numToReplace = stdIn.nextInt();
+		/*
 		if (numToReplace > 4 || numToReplace < 1)
 			throw new IllegalArgumentException("Can only discard up 0 to 4 cards");
 		if (numToReplace == 4 && hd.get(0).rank != 14)
 			throw new IllegalArgumentException("Can only discard up to three "
 					+ "cards without an Ace, and only up to 4 with");
+					*/
 		if (numToReplace > 0) {
 			indices = new int[numToReplace];
-			System.out.print("List the indices of the cards to discard? : ");
+			System.out.print("List the position of the cards to discard? : ");
 			for (int i = 0; i < numToReplace; i++) {
 				// Java have buffer overflow??
 				int index = stdIn.nextInt() - 1;
 				if (index > (0 - 1) && index < (5 + 1))
 					indices[i] = index;
+				/*
 				else
 					throw new IllegalArgumentException(
 							"Can only discard cards with and index of 1 through 5");
+							*/
 				System.out.println("Replacing user card at index " + (index + 1));
 			}
 		}
