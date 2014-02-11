@@ -93,18 +93,17 @@ public class PokerHand extends CardPile {
 	 * @param h
 	 * @param otherIndecies
 	 */
-	public void replace(int h, int ... otherIndecies) {
-		if (otherIndecies.length > 3)
+	public void replace(int [] otherIndecies) {
+		if (otherIndecies.length > 4)
 			throw new IllegalArgumentException("Too many Cards to replace.");
-		if (otherIndecies.length == 3){
-			int indexToCheck = 1 + 2 + 3 + 4 - h;
-			for (int i = 0; i < 3; ++i) {
+		if (otherIndecies.length == 4){
+			int indexToCheck = 1 + 2 + 3 + 4;
+			for (int i = 0; i < 4; ++i) {
 				indexToCheck -= otherIndecies[i];
 			}
 			if (get(indexToCheck).rank == 14)//TODO throw error, or print out error?
 				throw new IllegalArgumentException("Remaining card must be an ace, when dicarding 4");
 		}
-		replaceHelper(h);
 		for (int i = 0; i < otherIndecies.length; i++){
 			replaceHelper (otherIndecies[i]);
 		}
