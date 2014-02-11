@@ -52,11 +52,11 @@ public class Enemy extends Player {
 		    }
 			matchesPerCard[i] = matches;
 		}
-		/*** Shows for each index how many matches of card in the hand ***
+		/**** Shows for each index how many matches of card in the hand *****
 		System.out.println("Number matches per index: " + matchesPerCard[0]
 				+ matchesPerCard[1]  + matchesPerCard[2]  + matchesPerCard[3]
-				+ matchesPerCard[4]);
-		*/
+				+ matchesPerCard[4] + " for Player " + this.oppNumber); 
+		/********************************************************************/
 	    /* can probably have a method for segments below...but i'm tired :p */
 		/* code doesn't work for some reason...blue comments above show it should */
 		
@@ -76,7 +76,7 @@ public class Enemy extends Player {
 		}
 		/* three of a kind */
 		for(int i=0; i<5; i++) {				//scan through the index list
-			if(matchesPerCard[i] == 3) {		//see if any index has value of 4
+			if(matchesPerCard[i] == 3) {		//see if any index has value of 3
 				int[] toDiscard = new int[2];	//create array to hold value(s)
 				int counter = 0;				//create counter for indices found
 				for(int k=0; k<5; k++) {		//scan through again, to look for !match
@@ -98,11 +98,13 @@ public class Enemy extends Player {
 				int counter = 0;
 				for(int k=0; k<5; k++) {
 					if(matchesPerCard[k] != 2) {
+						System.out.println("Not index of pair " + matchesPerCard[k] + " Player " + oppNumber);
 						toDiscard[counter] = matchesPerCard[k];
 						counter++;
 						if(counter == 3) {
 						   oppRedrawPhase();
 						   return; }
+						//System.out.println("Index that is not part of pair: " + matchesPerCard[k]);
 					}
 				}
 			}

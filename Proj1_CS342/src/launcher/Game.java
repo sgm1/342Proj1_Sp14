@@ -44,12 +44,15 @@ public class Game {
 		for(int i=0; i<numOpponents; i++) {
 			opponents[i].showOppHand();
 			if(userWinning) {
+				/* System.out.println("user compareTo opponent["+(i+1)+"] = " + user.compareTo(opponents[i])); */
 				/* user does not have better hand */
 				if(user.compareTo(opponents[i]) < 0) { 
 					winnerThusFar = opponents[i].oppNumber; 
 					userWinning = false; }
 			}
 			else {
+				/* System.out.println("opponent["+(winnerThusFar)+"] compareTo opponent["+(i+1)+"] = " + 
+						user.compareTo(opponents[i])); */
 				/* following compareTo is slightly different than previous */
 				if(opponents[winnerThusFar-1].compareTo(opponents[i]) < 0) {
 					winnerThusFar = opponents[i].oppNumber; }
