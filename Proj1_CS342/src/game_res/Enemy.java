@@ -42,4 +42,8 @@ public class Enemy extends Player {
 	private int evaluateOppPhase() {
 		return hdo.getMetaValue();
 	}
+	
+	public int compareTo(Enemy other) {
+		return this.hdo.compareTo(other.hdo);
+	}
 }

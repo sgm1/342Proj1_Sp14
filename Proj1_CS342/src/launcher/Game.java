@@ -7,11 +7,8 @@ public class Game {
 
 	public static void main(String[] args) {
 		Scanner stdIn = new Scanner (System.in);
-		int winnerThusFar;
-		Deck gameDeck = new Deck();
-		
-		//System.out.println(gameDeck.getNumCardsLeft());
-		//t.replace(3); merged
+		int winnerThusFar;	//tracks current winner
+		Deck gameDeck = new Deck();	//deck to be used through program
 		
 		System.out.print("How many players? (max 10) : ");
 		int numOpponents = stdIn.nextInt()-1;
@@ -19,9 +16,8 @@ public class Game {
 		
 		/**
 		 * Initializes the appropriate number of players and opponents, 
-		 * deals everyone their hands, and creates array to store their scores
+		 * deals everyone their hands
 		 */
-		int[] playerScores = new int[numOpponents+1];;
 		Player user = new Player(numOpponents,gameDeck);
 		Enemy[] opponents = new Enemy[numOpponents];
 		for(int i=0; i<numOpponents; i++) {
@@ -29,8 +25,8 @@ public class Game {
 		}
 		
 		/**
-		 * Handles the users discard and redraw turn; all of the opponents discards, 
-		 * redraws, and final scores; then lastly returns to user to give score
+		 * Handles the users discard+redraw turn, all of the opponents turn,
+		 * and then lastly *returns to user to give score
 		 */
 		user.decideHand();
 		for(int i=0; i<numOpponents; i++) {
@@ -38,18 +34,26 @@ public class Game {
 		}
 		
 		/**
-		 * Compares all hands and decides who has the 
-		 * best hand. Assumes user is winner, checks if valid..
+		 * Compares all hands and decides who has the best hand. 
+		 * Assumes user is winner, then checks against opponents..
 		 * Will eventually print the hand and type
 		 */
 		user.showHand();
 		winnerThusFar = 0; // initialized to player
-		
+		boolean userWinning = true;
 		for(int i=0; i<numOpponents; i++) {
 			opponents[i].showOppHand();
-			if(user.compareTo(opponents[i]) < 0) {
-				winnerThusFar = opponents[i].oppNumber;
+			if(userWinning) {
+				/* user does not have better hand */
+				if(user.compareTo(opponents[i]) < 0) { 
+					winnerThusFar = opponents[i].oppNumber; 
+					userWinning = false; }
 			}
+			else {
+				/* following compareTo is slightly different than previous */
+				if(opponents[winnerThusFar-1].compareTo(opponents[i]) < 0) {
+					winnerThusFar = opponents[i].oppNumber; }
+			}	
 		}
 		if(winnerThusFar==0) {
 			System.out.println("You win! with a...");
