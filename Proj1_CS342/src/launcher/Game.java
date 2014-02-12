@@ -42,14 +42,11 @@ public class Game {
 		 * Assumes user is winner, then checks against opponents..
 		 * Will eventually print the hand and type
 		 */
-		user.showHand();
 		winnerThusFar = 0; // initialized to player
 		boolean userWinning = true;
 		Player curWinner;
-		winnerThusFar = 0;
 		curWinner = all[0];
 		for(int i=1; i<numOpponents; i++) {
-			all[i].showHand();
 			if (curWinner.compareTo(all[i]) > 1)
 				;
 			else{
@@ -57,7 +54,6 @@ public class Game {
 				curWinner = all[i];
 			}
 			/*
-			opponents[i].showOppHand();
 			if(userWinning) {
 				// user does not have better hand 
 				if(user.compareTo(opponents[i]) < 0) { 
@@ -65,16 +61,13 @@ public class Game {
 					userWinning = false; }
 			}
 			else {
-			
-				// System.out.println("opponent["+(winnerThusFar)+"] compareTo opponent["+(i+1)+"] = " + 
-				//		user.compareTo(opponents[i])); 
-				// following compareTo is slightly different than previous 
-			
 				if(opponents[winnerThusFar-1].compareTo(opponents[i]) < 0) {
 					winnerThusFar = opponents[i].oppNumber;
 				}
 		   */
 		}
+		
+		for(int i=0; i<numOpponents+1; i++) { all[i].showHand(); }
 		if(winnerThusFar==0) {
 			System.out.println("You win! with a...");
 			user.showHand(); }
