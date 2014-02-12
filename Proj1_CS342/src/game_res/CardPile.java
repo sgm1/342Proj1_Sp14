@@ -3,6 +3,12 @@ package game_res;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A generic card pile that can create instances of
+ * Card to be place in the pile and able to sort
+ * and shuffle the cards
+ *
+ */
 public class CardPile {
 	private ArrayList<Card> pile;
 	private int isSorted;// 0 means false, 1 means rank major, 2 means suit

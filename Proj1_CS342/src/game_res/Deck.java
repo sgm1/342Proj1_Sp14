@@ -1,5 +1,13 @@
 package game_res;
 
+
+/**
+ * Create a deck fo cards that used the standard 52 Card
+ * 
+ * Able to merge multiple deck into a single deck, but not capable
+ * for the current state of the game.
+ *
+ */
 public class Deck extends CardPile{
 	public final int numDecks;
 	private CardPile discardPile;

@@ -1,5 +1,10 @@
 package game_res;
 
+/**
+ * A class that just contains the value for
+ * each card to be placed in the Deck/Hand
+ *
+ */
 public final class Card {
 	public final int suit;
 	public final int rank;
