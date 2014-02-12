@@ -112,9 +112,11 @@ public class Enemy extends Player {
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
+			/*
 			System.out.println("DEBUG:");
 			showHand();
 			System.out.println("DEBUG:");
+			*/
 		} else if (val / 10000 > 0) {
 			if ((val / 1000000) > 0 && ((val % 10000) / 100 > 0)) {// a full
 																	// house
