@@ -118,6 +118,7 @@ public class PokerHand extends CardPile {
 	 * @return
 	 */
 	public Card getDisplayedCard(int i){
+		theRestVal();
 		setPrintOrder();//sets printOrder
 		return get(printOrder[i]);
 	}
@@ -158,6 +159,7 @@ public class PokerHand extends CardPile {
 		if (typeOfHand == 0)
 			return super.toString();
 		String temp = "";
+		setPrintOrder();
 		for (int i = 0; i < 5; i++){
 			temp += getDisplayedCard(i) + ", ";
 		}
@@ -175,7 +177,8 @@ public class PokerHand extends CardPile {
 	}
 	
 	private void setPrintOrder(){
-		if (typeOfHand == 1){
+		System.out.println(super.toString() + "Type o hand: " + typeOfHand);
+		if (typeOfHand == 1){// pairf
 			for (int i = 0, j = 0, k = 2; i < 5; i++){
 				if (rankCount[get(i).rank] == 2){
 					printOrder[j] = i;
@@ -185,16 +188,16 @@ public class PokerHand extends CardPile {
 					k++;
 				}
 			}
-		}else if (typeOfHand == 2){
+		}else if (typeOfHand == 2){// 2 pair
 			for (int i = 0, j = 0; i < 5; i++){
 				if (rankCount[get(i).rank] == 2){
 					printOrder[j] = i;
 					j++;
 				}
-				if (i < 4)
+				else if (rankCount[get(i).rank] == 1)
 					printOrder[4] = i;
 			}
-		}else if (typeOfHand == 3){
+		}else if (typeOfHand == 3){ // 3 of a kind or full house
 			for (int i = 0, j = 0, k = 3; i < 5; i++){
 				if (rankCount[get(i).rank] == 3){
 					printOrder[j] = i;
@@ -204,7 +207,7 @@ public class PokerHand extends CardPile {
 					k++;
 				}
 			}
-		}else if (typeOfHand == 4){
+		}else if (typeOfHand == 4){// four of a kind
 			for (int i = 0, j = 0; i < 5; i++){
 				if (rankCount[get(i).rank] == 4){
 					printOrder[j] = i;
@@ -343,21 +346,18 @@ public class PokerHand extends CardPile {
 			}
 			if(!foundTwoOfAKind && rankCount[i] == 2){
 				typeOfHand = 1;
-				val += i * 100;
-			}
-			if(foundTwoOfAKind && rankCount[i] == 2){
+				val += i * 100;// put 2nd 2 of a kind in 100's place
+				foundTwoOfAKind = true;
+			}else if(foundTwoOfAKind && rankCount[i] == 2){
 				typeOfHand = 2;
-				val += i * 10000;
-			}
-			if(rankCount[i] == 3){
+				val += i * 10000;// put 2nd 2 of a kind in 10 thousands place
+			}else if(rankCount[i] == 3){
 				typeOfHand = 3;// should take care of fullhouse too
-				val += i * 1000000;
-			}
-			if(rankCount[i] == 4){
+				val += i * 1000000;// put 3 of a kind in 1 millions place
+			}else if(rankCount[i] == 4){
 				typeOfHand = 4;
-				val += i * 100000000;
-			}
-			if(rankCount[i] == 5){//multiple decks?
+				val += i * 100000000;//put 4 of a kind value in 100 millions place
+			}else if(rankCount[i] == 5){//multiple decks?
 				typeOfHand = 0;
 				val = 0x7FFFFFFF;//max_int32
 			}
