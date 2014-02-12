@@ -40,7 +40,7 @@ public class CardPile {
 		}
 		if (sort == 0) {
 			shuffle();
-			System.out.println("Deck is being suffled.");
+			System.out.println("Deck is being shuffled.");
 		} else if (sort == 1)
 			sortBySuit(false);// sort rank major
 		else

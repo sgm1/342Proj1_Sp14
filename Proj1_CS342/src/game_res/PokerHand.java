@@ -202,7 +202,7 @@ public class PokerHand extends CardPile {
 				if (rankCount[get(i).rank] == 3){
 					printOrder[j] = i;
 					j++;
-				}else{
+				}else if (rankCount[get(i).rank] > 0){
 					printOrder[k] = i;
 					k++;
 				}
@@ -212,7 +212,7 @@ public class PokerHand extends CardPile {
 				if (rankCount[get(i).rank] == 4){
 					printOrder[j] = i;
 					j++;
-				}else{
+				}else if (rankCount[get(i).rank] == 1){
 					printOrder[4] = i;
 				}
 			}
