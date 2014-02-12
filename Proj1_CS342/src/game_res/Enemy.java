@@ -136,7 +136,7 @@ public class Enemy extends Player {
 				showHand();
 				// System.out.println("DEBUG:");
 			} else if (val / 10000 > 0) {
-				System.out.println("Opp" + oppNumber + " replaced card 4");
+				System.out.println("Opp" + oppNumber + " replaced card 4"); 
 				try {
 					hd.replace(4);
 				} catch (IllegalArgumentException e) {
