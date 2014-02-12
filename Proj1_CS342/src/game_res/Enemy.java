@@ -18,7 +18,7 @@ public class Enemy extends Player {
 	 * Calling method of Enemy class; initiates opponents turn
 	 */
 	public void opponentTurn() {
-		this.showHand();
+		//this.showHand();
 		this.oppDiscardPhase();
 		return;
 	}
@@ -104,19 +104,21 @@ public class Enemy extends Player {
 		 */
 		int val = hd.getMetaValue();
 		int temp[];
+		showHand();
 		if (val == 0x7FFFFFFF) {
-
+			//straight and or flush
 		} else if (val / 100000000 > 0) {
+			// at least 3 of a kind
+			System.out.println("Opp" + oppNumber + " replaced card 4");
 			try {
 				hd.replace(4);
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
-			/*
-			System.out.println("DEBUG:");
-			showHand();
-			System.out.println("DEBUG:");
-			*/
+			//System.out.println("DEBUG:");
+			//showHand();
+			//System.out.println("DEBUG:");
+			//
 		} else if (val / 10000 > 0) {
 			if ((val / 1000000) > 0 && ((val % 10000) / 100 > 0)) {// a full
 																	// house
@@ -125,6 +127,7 @@ public class Enemy extends Player {
 				temp = new int[2];
 				temp[0] = 3;
 				temp[1] = 4;
+				System.out.println("Opp" + oppNumber + " replaced cards 3 and 4");
 				try {
 					hd.replace(temp);
 				} catch (IllegalArgumentException e) {
@@ -134,6 +137,7 @@ public class Enemy extends Player {
 				showHand();
 				// System.out.println("DEBUG:");
 			} else if (val / 10000 > 0) {
+				System.out.println("Opp" + oppNumber + " replaced card 4"); 
 				try {
 					hd.replace(4);
 				} catch (IllegalArgumentException e) {
@@ -149,11 +153,18 @@ public class Enemy extends Player {
 			temp[0] = 2;
 			temp[1] = 3;
 			temp[2] = 4;
-			hd.replace(temp);
-			System.out.println("DEBUG:");
+			System.out.println("Opp" + oppNumber + " replaced cards 3, 4, 5");
+			try{
+				hd.replace(temp);
+			}
+			catch (IllegalArgumentException e){
+				System.out.println(e.getMessage());
+			}
+			//System.out.println("DEBUG:");
 			showHand();
-			System.out.println("DEBUG:");
+			//System.out.println("DEBUG:");
 		}
+		//showHand();
 	}
 
 	/**
@@ -169,7 +180,7 @@ public class Enemy extends Player {
 	}
 
 	/**
-	 * Handles comparing one opponents hand to another
+	 * Handles comparing one opponents hand to anothers
 	 * 
 	 * @param Enemy
 	 *            other an opponents hand being compared to current opponent

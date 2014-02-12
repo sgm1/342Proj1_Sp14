@@ -85,7 +85,7 @@ public class Game {
 			all[winnerThusFar].showHand();
 		}
 		
-		System.out.println("Thank you for paying!");
+		System.out.println("Thank you for playing!");
 		stdIn.close();
 	}
 }
