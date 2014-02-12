@@ -67,7 +67,7 @@ public class PokerHand extends CardPile {
 
 	/**
 	 * Replace a specific index of a
-	 * Card.
+	 * Card. 
 	 * Check validity before call.
 	 * 
 	 * @param i Index of the card to be replaced.
