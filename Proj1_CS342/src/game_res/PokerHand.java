@@ -177,7 +177,7 @@ public class PokerHand extends CardPile {
 	}
 	
 	private void setPrintOrder(){
-		System.out.println(super.toString() + "Type o hand: " + typeOfHand);
+		//System.out.println(super.toString() + "Type o hand: " + typeOfHand);
 		if (typeOfHand == 1){// pairf
 			for (int i = 0, j = 0, k = 2; i < 5; i++){
 				if (rankCount[get(i).rank] == 2){
