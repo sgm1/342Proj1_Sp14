@@ -138,6 +138,7 @@ public class Enemy extends Player {
 				}
 				hd.replace(toRep + 1);
 				System.out.println("Opp" + oppNumber + " replaced card " + (toRep + 1));
+				break;
 			}
 		}
 		if (isAlmostFlush){
