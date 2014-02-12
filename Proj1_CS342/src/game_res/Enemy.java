@@ -55,20 +55,19 @@ public class Enemy extends Player {
 		/* else top two valued cards */
 		
 		int val = hd.getMetaValue();
-		System.out.println(">>>>>>>" + val);
+		//System.out.println(">>>>>>>" + val);
 		int temp[];
 		//showHand();
 		if (val == 0x7FFFFFFF) {
 			//straight and or flush
 		} else if (val / 100000000 > 0) {
-			// at least 3 of a kind
 			System.out.println("Opp" + oppNumber + " replaced card 4");
 			try {
 				hd.replace(4);
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
-		} else if (val / 10000 > 0) {
+		} else if (val / 10000 > 0) {//at least 2 pair
 			if ((val / 1000000) > 0 && ((val % 10000) / 100 > 0)) {// a full
 																	// house
 				// replace nothing
@@ -82,7 +81,7 @@ public class Enemy extends Player {
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.getMessage());
 				}
-			} else if (val / 10000 > 0) {
+			} else if (val / 10000 > 0) { //2 pair
 				System.out.println("Opp" + oppNumber + " replaced card 4"); 
 				try {
 					hd.replace(4);

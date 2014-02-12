@@ -60,7 +60,7 @@ public class PokerHand extends CardPile {
 	 */
 	public int getMetaValue(){
 		int temp = theRestVal();//sets type of hand
-		if (typeOfHand == 0)
+		if (typeOfHand == 0 && (isStraight() || isFlush()))
 			return 0x7FFFFFFF;
 		else return temp;
 	}
