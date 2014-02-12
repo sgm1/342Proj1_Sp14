@@ -1,5 +1,11 @@
 package game_res;
 
+/***
+ * A PokerHand that deals with the direct interaction with the deck
+ * and evaluates itself versus other PokerHands
+ * 
+ *
+ */
 public class PokerHand extends CardPile {
 	private static Deck daDeck = null;// shared among all PokerHands
 	private int rankCount[] = new int[15];
@@ -101,7 +107,7 @@ public class PokerHand extends CardPile {
 			for (int i = 0; i < 4; ++i) {
 				indexToCheck -= otherIndecies[i];
 			}
-			if (getDisplayedCard(indexToCheck).rank != 14)//TODO throw error, or print out error?
+			if (getDisplayedCard(indexToCheck).rank != 14)
 				throw new IllegalArgumentException("Remaining card must be an ace, when dicarding 4");
 		}
 		for (int i = 0; i < otherIndecies.length; i++){
@@ -137,7 +143,7 @@ public class PokerHand extends CardPile {
 	 * The function to call to compare two poker hands
 	 * 
 	 * @param other
-	 * @return
+	 * @return negative if this is worse than other
 	 */
 	public int compareTo(PokerHand other) {
 		int specialsVal = staightAndOrFlushCompare(other);
@@ -145,8 +151,18 @@ public class PokerHand extends CardPile {
 		if (specialsVal != 0){
 			typeOfHand = 0;
 			return specialsVal;
+		} else if (typeOfHand == 0 && other.typeOfHand == 0){
+			int i = 0;
+			while (this.get(i).rank == other.get(i).rank && i < 5){
+				++i;
+			}
+			if (i == 5)
+				return 0;
+			return (get(i).rank - other.get(i).rank);
 		}
-		else return duplicatesVal;
+		else{
+			return duplicatesVal;
+		}
 	}
 	
 	/**
@@ -251,7 +267,7 @@ public class PokerHand extends CardPile {
 	private int staightAndOrFlushCompare(PokerHand other) {
 		int fl = flushCompare(other);
 		int st = straightCompare(other);
-		if (other.isFlush() && isFlush() && (other.isFlush() || isFlush())) {//is str8 flush
+		if (other.isFlush() && isFlush() && (other.isStraight() || isStraight())) {//is str8 flush
 			return (st / 100) * 10000;// if a str8 flush, no suit info
 		} else if (fl != 0)
 			return fl;
@@ -280,7 +296,7 @@ public class PokerHand extends CardPile {
 			for (int i = 0; i < 5 && comp == 0; ++i){
 				comp = get(i).rank - other.get(i).rank;
 			}
-			return comp; //compare top ranks loop, in cas eof ties
+			return comp; //compare top ranks loop, in case of ties
 		}else if (isF)
 			return 1;
 		else if (otherIsF)

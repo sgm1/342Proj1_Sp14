@@ -3,6 +3,10 @@ package launcher;
 import java.util.Scanner;
 import game_res.*;
 
+/**
+ *  Launches the game and asks for the number of palyers to be created.
+ *
+ */
 public class Game {
 
 	public static void main(String[] args) {
@@ -52,18 +56,16 @@ public class Game {
 		 * hand and type
 		 */
 		winnerThusFar = 0; // initialized to player
-		boolean userWinning = true;
+		//boolean userWinning = true;
 		Player curWinner;
 		curWinner = all[0];
-		for (int i = 1; i < numOpponents; i++) {
-			if (curWinner.compareTo(all[i]) > 1)
-				;
-			else {
-				winnerThusFar = i;
+		for (int i = 1; i < all.length; i++) {
+			if (curWinner.compareTo(all[i]) < 0) {
 				curWinner = all[i];
+				winnerThusFar = i;
 			}
 		}
-
+		System.out.println("Final hands:");
 		for (int i = 0; i < numOpponents + 1; i++) {
 			all[i].showHand();
 		}
