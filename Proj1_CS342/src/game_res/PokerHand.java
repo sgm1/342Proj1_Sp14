@@ -2,7 +2,8 @@ package game_res;
 
 /***
  * A PokerHand that deals with the direct interaction with the deck
- * and evaluates itself versus other PokerHands
+ * and evaluates itself versus other PokerHands also provides the
+ * metadata value used to evaluate the hand to help with the AI
  * 
  *
  */
@@ -55,6 +56,14 @@ public class PokerHand extends CardPile {
 	 * If value is greater than 14, better than a pair
 	 * 
 	 *  Otherwise the greatest card is returned
+	 *  
+	 *  Format or the metadata in integer
+	 *  
+	 *  Rank of:
+	 *  4 Of a Kind | 3 Of a Kind | 1st 2 Of a Kind | 2nd 2 Of a Kind | High Card
+	 *  
+	 *  Note: High Card doesn't not include one included in any of
+	 *  the earlier categories.
 	 * 
 	 * @return Meta value for hand.
 	 */
